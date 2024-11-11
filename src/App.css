@@ -1,0 +1,57 @@
+
+.ltr {
+  direction: ltr;
+  text-align: left;
+}
+
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+
+
+/* theme dark */
+.bg-black{
+  background-color: black;
+}
+.bg-light-black{
+  background-color: #262626 !important;
+}
+.text-black{
+  color: black;
+}
+.text-light-black{
+  color: #262626;
+}
+.bg-slider-black {
+  background-color: rgba(107, 105, 105, 0.85) !important; /* White with slight transparency */
+}
+.bg-dark-primary{
+  background-color: #c0bfbf !important;
+}
+.text-dark-primary{
+  color: #c0bfbf !important;
+}
+
+/* theme light */
+.bg-light{
+  background-color: white;
+}
+.bg-light-2{
+  background-color: #dadcde;
+}
+.bg-light-primary{
+  background-color: #121212 !important;
+}
+.text-light-primary{
+  color: #121212 !important;
+}
+.text-silver{
+  color:rgb(241, 241, 241);
+}
+
+.react-tel-input input{
+  width: 100% !important;
+}
+

@@ -1,0 +1,265 @@
+/* General styling for fixed navbar */
+.navbar-fixed {
+  width: 100%;
+  position: fixed;
+  z-index: 100;
+  top: 45px;
+  height: 100px;
+}
+
+.navbar2-fixed {
+  width: 100%;
+  position: fixed;
+  z-index: 99;
+  top: 130px;
+  height: 70px;
+  display: flex;
+}
+.small-select {
+  font-size: 14px;
+  border: none; /* Remove default border */
+  box-shadow: none; /* Remove default shadow */
+}
+/* Styling for the banner */
+.banner-fixed {
+  background-color: #121212;
+  color: #ffffff;
+  padding: 1% 4%;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 200;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+.banner-fixed button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white; /* Set button color */
+
+  padding: 0px; /* Add padding for better touch area */
+  transition: color 0.3s; /* Transition effect on hover */
+}
+
+.banner-fixed button:hover {
+  color: #ffcc00; /* Change color on hover */
+}
+
+/* Show the social icons by default */
+/* .social-icons-toggle {
+  display: flex;
+} */
+
+/* .form-control{
+  display: none;
+} */
+
+/* .form-control-borderless {
+  border: none;
+}
+
+.form-control-borderless:hover,
+.form-control-borderless:active,
+.form-control-borderless:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
+} */
+.search_dropdown {
+  list-style-type: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  position: absolute; /* Set position to absolute */
+  top: 100%; /* Move the dropdown above the input */
+  left: 0; /* Align the dropdown with the left edge of the input */
+  width: 100%; /* Make the dropdown full width */
+  z-index: 999; /* Ensure the dropdown appears above the navbar */
+}
+.search_dropdown li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.search_dropdown li:hover {
+  background-color: #f5f5f5;
+}
+
+.search-bar {
+  display: block;
+}
+.offcanvas-search-bar {
+  display: none; /* Default to hidden */
+}
+
+.social-icons-toggle {
+  display: none;
+}
+
+/* Media query for small screens */
+@media (max-width: 576px) {
+  .navbar-fixed {
+    height: 70px;
+    /* top: 35px;  */
+  }
+  .search_dropdown {
+    top: 68%; 
+     }
+  /* Adjust the logo size for smaller screens */
+  .navbar-brand img {
+    max-height: 50px; /* Smaller logo size */
+  }
+
+  /* Adjust the banner text size */
+  .banner-fixed span {
+    font-size: 10px; /* Smaller text size */
+  }
+
+  .banner-fixed {
+    padding: 0.1% 0%;
+  }
+
+}
+
+/* Media query for medium screens */
+@media (max-width: 768px) {
+  .navbar-fixed {
+    height: 80px;
+    /* top: 35px; */
+  }
+
+  .navbar2-fixed {
+    height: 80px;
+    /* top: 110px; */
+  }
+  /* Adjust the logo size for medium screens */
+  .navbar-brand img {
+    max-height: 60px;
+  }
+  .search-bar {
+    display: none;
+    /* Medium screen specific styles */
+    height: 38px; /* Slightly adjust height */
+    font-size: 16px; /* Adjust font size */
+  }
+
+  .offcanvas-search-bar {
+    display: block; /* Ensure it shows in Offcanvas */
+  }
+
+  /* Adjust the banner text size */
+  .banner-fixed span {
+    font-size: 1cqw;
+  }
+  .text-Icons a {
+    font-size: 1rem; /* Smaller icons on small screens */
+  }
+  .banner-fixed {
+    padding: 0.1% 2%;
+  }
+  .text-Icons {
+    gap: 20px;
+  }
+  .hide-on-large {
+    display: block;
+  }
+
+  .show-on-large {
+    display: none;
+  }
+  /* Show social icons when Navbar.Toggle is open on small screens */
+  .social-icons-toggle {
+    display: flex;
+    justify-content: center;
+     gap: 10px;
+    padding: 1rem;
+  }
+}
+
+/* Ensure the banner height is consistent across all screen sizes */
+.banner-fixed {
+  line-height: 1.4;
+  font-size: 10px;
+}
+
+/* Spacer div to avoid content being hidden under the navbar */
+.navbar-spacer {
+  height: 80px; /* Adjust based on the navbar height */
+}
+
+@media (max-width: 820px) {
+  .navbar-fixed {
+    height: 80px;
+    /* top: 33px; */
+  }
+  .navbar2-fixed {
+    height: 80px;
+    /* top: 110px; */
+  }
+  /* Adjust the logo size for medium screens */
+  .navbar-brand img {
+    max-height: 60px;
+  }
+  .banner-fixed {
+    padding: 1.1% 4%;
+  }
+
+  /* Adjust the banner text size */
+  .banner-fixed span {
+    font-size: 11px;
+  }
+  .text-Icons a {
+    font-size: 1rem; /* Smaller icons on small screens */
+  }
+  .text-Icons {
+    gap: 0px;
+  }
+
+}
+
+/* Ensure the banner height is consistent across all screen sizes */
+.banner-fixed {
+  line-height: 1.4;
+  font-size: 10px;
+}
+
+/* Spacer div to avoid content being hidden under the navbar */
+.navbar-spacer {
+  height: 80px; /* Adjust based on the navbar height */
+}
+
+@media (max-width: 1280px) {
+  .navbar-fixed {
+    height: 80px;
+    top: 25px;
+  }
+  .navbar2-fixed {
+    height: 80px;
+    top: 101px;
+  }
+  /* Adjust the logo size for medium screens */
+  .navbar-brand img {
+    max-height: 60px;
+  }
+
+  /* Adjust the banner text size */
+  .banner-fixed span {
+    font-size: 11px;
+  }
+
+  .text-Icons a {
+    font-size: 1rem; /* Smaller icons on small screens */
+  }
+}
+/* Hide the social icons on large screens */
+
+/* Spacer div to avoid content being hidden under the navbar */

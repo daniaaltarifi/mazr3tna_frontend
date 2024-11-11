@@ -1,0 +1,97 @@
+/* .full-screen-slider {
+ 
+ 
+    overflow: hidden;
+    padding: 0;
+  }
+  
+   */
+  
+  /* .slick-dots {
+    position: absolute;
+   bottom: 0;
+    width: 100%;
+    text-align: center;
+    color: #e8eaee;
+    padding: 0;
+  }
+  
+  .slick-dots li {
+    display: inline-block;
+    margin: 0 5px;
+  } */
+  /* .container-fluid {
+    padding: 0; 
+  }
+  .container-fluid h3 {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    font-weight: 400;
+   
+   
+  } */
+  .btn-card{
+  width: 150px !important;
+   
+    font-size: 0.89rem;
+    border-color: #141414;
+  }
+  
+  .product-card h5 {
+    margin: 10px 0; /* Space above and below the title */
+  }
+  
+  .product-card p {
+    font-size: 1rem; /* Adjust the font size for the price */
+    color: #333; /* Price color */
+    margin: 5px 0; /* Space around price */
+  }
+  
+  
+  .slider_img_home {
+    width: 80%; 
+    height:400px; /* Maintain aspect ratio */
+    max-height: 400px; /* Set a max height as needed */
+    object-fit: cover;
+    border-radius: 25px;
+  }
+  
+
+  /* Adjust slide padding if needed */
+  .slick-slide {
+    position: relative;
+  }
+  
+  
+  
+  
+  
+  
+  /* Optionally adjust arrow positions */
+  .slick-prev, .slick-next {
+    z-index: 1; /* Ensure arrows are above other elements */
+  }
+  .slider_img_home:hover{
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+      transition: box-shadow 0.5s ease-out;
+  }
+  
+  
+  
+  
+    /* Optionally hide the arrows for smaller screens */
+    @media (max-width: 480px) {
+      .slick-prev {
+        display: none;
+      }
+      .slick-next{
+          display: none;
+      }
+      .slider_img_home {
+      height: 200px;
+      }
+     
+     
+    }
+    
+  

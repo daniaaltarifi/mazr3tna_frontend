@@ -1,0 +1,15 @@
+
+
+
+.shipping-option {
+    border: 1px solid #ced4da; /* Change this color as needed */
+   
+    padding: 15px; /* Padding inside the border */
+  
+    transition: border-color 0.3s ease; /* Smooth transition for border color */
+  }
+  
+  .shipping-option.selected {
+   
+    border: 2px solid black ; /* Selected border color */
+  }

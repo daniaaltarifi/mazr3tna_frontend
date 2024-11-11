@@ -1,0 +1,45 @@
+.form-signin {
+  width: 100%;
+  max-width: 430px;
+  margin: auto;
+  background-color: #eaeced;
+  border-radius: 10px;
+}
+.title_feedback {
+  text-align: center;
+  padding-top: 5vh;
+}
+
+.form_feedback {
+  padding: 15px;
+}
+
+.feedback_textarea {
+  border-color: #ced4da;
+  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);
+  height: 115px;
+}
+.form-floating>.feedback_textarea, .form-floating>.feedback_textarea {
+    padding: 1rem .75rem;
+    height: 100px;
+    margin-bottom: 3vh;
+}
+.rating{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2vh;
+}
+.rating .star {
+  font-size: 24px;
+  color: gray; /* Gray color for unselected stars */
+  cursor: pointer;
+}
+
+.rating .star.filled {
+  color: gold; /* Color for filled stars */
+}
+.error_rating{
+  color: red;
+  text-align: center;
+}

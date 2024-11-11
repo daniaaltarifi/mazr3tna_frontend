@@ -1,0 +1,111 @@
+/* .bady{
+  background-color: white;
+      
+} */
+
+
+
+.responsive-carousel {
+    max-width: 100%;
+    height:80vh; /* Set a specific height */
+}
+
+
+.carousel-image {
+    width: 100%; /* Ensure the image takes the full width */
+    height: 80vh; /* Adjust height to maintain aspect ratio */
+    max-height: 80vh; /* You can adjust this as needed */
+}
+
+
+.carousel-caption {
+    background-color: rgba(255, 255, 255, 0.85); /* White with slight transparency */
+    padding: 10px;
+    border-radius: 5px;
+    width: 34.5rem; /* Fixed width for the caption box */
+    display: flex;
+    flex-direction: column; /* Ensure content stacks vertically */
+    align-items: center; /* Center content horizontally */
+    justify-content: center; /* Vertically center content */
+    position: absolute; /* Positioning for centering */
+    top: 50%; /* Vertically center the box */
+    left: 50%; /* Horizontally center the box */
+    transform: translate(-50%, -50%); /* Proper centering */
+    height: 18.5rem;
+    
+}
+
+.titel-home h3 {
+    color: black;
+    font-size: 1.3rem;
+    margin: 20px 0 5px; /* Space above and below the heading */
+    letter-spacing: 0.2rem;
+   
+}
+
+.text-center p {
+    color: #636060;
+    font-size: 0.99rem;
+    margin: 0 0 5px; /* Space between paragraph and button */
+    letter-spacing: 0.1rem;
+}
+
+/* .text-center .btn {
+    
+    margin-bottom: 15px;
+    font-size: 0.79rem;
+    border-color: #8b8a8a;
+} */
+
+
+.text-center .btn {
+   
+    font-size: 12px;
+    border: 2px solid #8b8a8a; /* Add border color */
+    padding: 10px 20px; /* Adjust padding */
+    color: #000; /* Text color */
+    background-color: transparent; /* Transparent background */
+    transition: all 0.3s ease; /* Smooth transition for hover */
+    letter-spacing: 0.1rem;
+    margin-bottom: 2vh;
+    
+}
+
+.text-center .btn:hover {
+    color: #000; /* Text color */
+    background-color: transparent; /* Transparent background */
+ 
+  
+    transform: scale(1.05); /* Slightly enlarge the button */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow on hover */
+}
+
+@media (max-width: 768px) {
+    .responsive-carousel {
+        height: 300px;
+    }
+    .carousel-image {
+        max-height: 300px; 
+    }
+    .carousel-caption {
+        padding: 15px;
+        width: 95%; /* Make the caption box more fluid on smaller screens */
+        max-width: 90%; /* Ensure it doesn’t exceed 90% of the screen width */
+        height: 9.3rem;
+    }
+
+    .titel-home h3 {
+        font-size: 0.6rem; /* Adjust font size for smaller screens */
+    }
+
+    .text-center p {
+        font-size: 0.5rem; /* Adjust font size for smaller screens */
+    }
+    .text-center .btn {
+   
+      margin-top: 0px;
+        font-size: 0.6rem;
+       
+        
+    }
+}

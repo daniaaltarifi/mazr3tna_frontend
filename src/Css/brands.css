@@ -1,0 +1,116 @@
+/* Ensure all images have the same dimensions */
+.brand-image-container {
+  margin-bottom: 50px;
+}
+
+.container-Brands {
+  overflow: hidden;
+ 
+}
+
+.brand-image-container:hover {
+
+  border: none;
+  transform: scale(1.05);
+}
+.brand-image {
+  width: 200px; /* Full width for responsiveness */
+  max-width: 300px; /* Limit max width */
+  height: 200px; /* Fixed height for all images */
+  object-fit: cover; /* Maintain aspect ratio while filling the container */
+  margin: 0 auto ; /* Center the image */
+
+}
+
+.link-Brands {
+  display: block;
+  color: #888;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+/* .Title-Brands {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 400;
+  text-align: center;
+ 
+} */
+
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+  .brand-image {
+    max-width: 200px; /* Adjust max width for medium screens */
+    height: 200px; /* Adjust height for medium screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .brand-image {
+    max-width: 200px; /* Adjust max width for small screens */
+    height: 200px; /* Adjust height for small screens */
+  }
+}
+
+
+a:hover {
+  text-decoration: underline;
+}
+
+.Title-Brands {
+  font-size: 2.5rem;
+  line-height: 2.5rem;
+  font-weight: 400;
+  text-align: center;
+}
+@media (max-width: 1240px) {
+  .container-Brands h3 {
+    font-size: 2rem;  /* Slightly smaller on large screens */
+    line-height: 2.25rem;
+  }
+  .brand-image {
+    max-width: 200px; /* Adjust max width for small screens */
+    height: 200px; /* Adjust height for small screens */
+  }
+}
+/* Adjust title size for various screen widths */
+@media (max-width: 1200px) {
+  .container-Brands h3 {
+    font-size: 2rem;  /* Slightly smaller on large screens */
+    line-height: 2.25rem;
+  }
+  
+}
+
+@media (max-width: 992px) {
+  .container-Brands h3 {
+    font-size: 1.75rem;  /* Medium screen size */
+    line-height: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container-Brands h3 {
+    font-size: 1.5rem;  /* Smaller tablets and large phones */
+    line-height: 1.75rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .container-Brands h3 {
+    font-size:25px;  /* Small phones */
+    line-height: 1.5rem;
+    font-weight: bold;
+  }
+}
+
+@media (max-width: 360px) {
+  .container-Brands h3 {
+    font-size: 1rem;  /* Very small screens */
+    line-height: 1.25rem;
+  }
+}

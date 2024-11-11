@@ -1,0 +1,144 @@
+/* .custom-width {
+    width:220px !important;
+} */
+/* .btn-link {
+    color: rgb(153, 153, 153);
+   
+}
+
+.btn-link:hover {
+    color: rgb(168, 167, 167);
+    text-decoration:underline !important;
+
+} */
+
+
+  
+/* General custom styles for dark and light themes */
+.bg-dark-custom {
+      background-color: #1c1c1c !important; /* Dark background */
+    color: #ffffff !important;          /* Light text */
+}
+
+.bg-light-custom {
+    background-color: #ffffff !important; /* Light background */
+    color: #000000 !important;            /* Dark text */
+}
+
+
+/* .btn-link.text-dark {
+    color: rgb(102, 102, 102);
+} */
+
+/* Customize .offcanvas-end for dark theme */
+.offcanvas-end.bg-dark-custom {
+    background-color: #1c1c1c !important;
+    color: rgb(102, 102, 102);
+}
+.Price {
+    font-weight: normal; /* You can adjust this as needed */
+    color: rgb(168, 167, 167);
+  /* padding-left: 81px; */
+  text-align: center;
+  font-size:12px ;
+}
+/* .btn-outline-secondary {
+    border: 1px solid #ccc; 
+    color: #333; 
+} */
+
+/* .btn-outline-secondary:hover {
+    background-color: #f8f9fa; 
+} */
+
+/* .Quantity {
+    justify-content: center; 
+    text-align: center;
+    width: 100%; 
+} */
+
+.btn-outline-secondary {
+    color: rgb(168, 167, 167);
+    width: 40px;
+    height: 30px;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+.btn-outline-secondary:hover {
+    background-color: rgb(216, 214, 214);
+    color: #333;
+}
+
+span {
+    margin: 0 10px; /* Add margin for spacing around the quantity display */
+}
+/* .border-but{
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+   
+} */
+/* styles.css or your component-specific CSS file */
+/* .custom-textarea {
+    width: 100%; 
+    min-height: 7rem !important; 
+} */
+
+/* .border-but:hover{
+    border: 1px solid #333;
+  
+} */
+
+/* .Gift .form-control {
+    background-color: #333;
+    color: #ccc;
+    
+}
+
+.Gift .form-control:focus {
+    background-color: #ccc;
+    color: #333;
+} */
+/* Allow the cart item list to scroll */
+.scrollable-cart-items {
+    overflow-y: auto;
+    padding-right: 10px; /* Optional to give space between scrollbar and content */
+}
+
+/* Flex-grow will make the scrollable content take the available space */
+.offcanvas-body {
+    display: flex;
+    flex-direction: column;
+    height: 90%; /* Make sure it takes full height */
+}
+
+/* Fixed bottom area */
+.fixed-bottom-wrapper {
+    margin-top: auto; /* Push this section to the bottom */
+    background-color: inherit; /* Keep the same background */
+    padding-bottom: 20px; /* Add space from the bottom */
+}
+
+
+
+
+
+.scrollable-cart-items::-webkit-scrollbar {
+    width: 5px; /* Width of the scrollbar */
+}
+
+.scrollable-cart-items::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color of the scroll thumb */
+    border-radius: 10px; /* Rounded corners for the thumb */
+}
+
+.scrollable-cart-items::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Darker color when hovered */
+}
+
+.scrollable-cart-items::-webkit-scrollbar-track {
+    background: transparent; /* Background for the scrollbar track */
+}
