@@ -49,20 +49,20 @@ function Fragrances ({ title, apiUrl }) {
   const [theme] = useThemeHook();
   const API_URL = process.env.REACT_APP_API_URL;
   const [products, setProducts] = useState([]);
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(`${API_URL}/${apiUrl}`);
-        const data = await response.json();
-        const last15product=data.slice(-12)
-        setProducts(last15product); // Set the products state
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchProducts = async () => {
+  //     try {
+  //       const response = await fetch(`${API_URL}/${apiUrl}`);
+  //       const data = await response.json();
+  //       const last15product=data.slice(-12)
+  //       setProducts(last15product); // Set the products state
+  //     } catch (error) {
+  //       console.error("Error fetching products:", error);
+  //     }
+  //   };
 
-    fetchProducts();
-  }, [apiUrl]);
+  //   fetchProducts();
+  // }, [apiUrl]);
   return (
     <section
       className={

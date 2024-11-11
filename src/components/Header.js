@@ -43,6 +43,7 @@ const Header = ({ cartItems }) => {
   const [banners, setBanners] = useState([]);
   const { isEmpty, totalItems } = useCart();
   const [productType, setProductType] = useState("");
+  const [main_product, setMain_product] = useState([]);
   
   const numberofitemsincart = !user ? totalItems : cart.length;
   const handleSelection = (event) => {
@@ -57,13 +58,16 @@ const Header = ({ cartItems }) => {
     setSelectedOption(lang);
     const fetchData = async () => {
       try {
-        const [seasonResponse, codeResponse] = await Promise.all([
+        const [seasonResponse, codeResponse,main_productRes] = await Promise.all([
           axios(`${API_URL}/product/get/season`),
           axios(`${API_URL}/discountcode/getcodes`),
+          axios(`${API_URL}/mainproduct/getmainproduct`),
+          
         ]);
-
         setseasons(seasonResponse.data);
         setBanners(codeResponse.data);
+        setMain_product(main_productRes.data);
+        console.log("first page loaded",main_productRes.data)
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -110,15 +114,15 @@ const Header = ({ cartItems }) => {
   }, [darkMode, setThemeMode]);
 
   useEffect(() => {
-    const getproductForSearch = async () => {
-      try {
-        const res = await axios.get(`${API_URL}/product/get/allproducts`);
-        setAllproductData(res.data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-    getproductForSearch();
+    // const getproductForSearch = async () => {
+    //   try {
+    //     const res = await axios.get(`${API_URL}/product/get/allproducts`);
+    //     setAllproductData(res.data);
+    //   } catch (error) {
+    //     console.error("Error fetching products:", error);
+    //   }
+    // };
+    // getproductForSearch();
   }, [openSearch]);
 
   const handleType = (
@@ -323,11 +327,20 @@ const Header = ({ cartItems }) => {
                   >
                     {lang === "ar" ? "الرئيسية" : "HOME"}
                   </Nav.Link>
-                  <NavDropdown
-                    title={lang === "ar" ? "العطور" : "FRAGRANCES"}
-                    id={`offcanvasNavbarDropdown-expand-${expand}`}
-                  >
-                    <NavDropdown.Item
+                  {main_product.map((catg)=>(
+                   <Nav.Link
+                   as={Link}
+                   key={catg.id}
+                   to={`/${lang}/allproducts/${catg.id}`}
+                  //  onClick={() => {
+                  //    handleType("", "", "", "allproducts");
+                  //    setIsMenuOpen(false);
+                  //  }}
+                 >
+                   {catg.name}
+                 </Nav.Link>
+                  ))}
+                    {/* <NavDropdown.Item
                       as={Link}
                       to={`/${lang}/allproducts`}
                       onClick={() => {
@@ -366,99 +379,11 @@ const Header = ({ cartItems }) => {
                       }}
                     >
                       {lang === "ar" ? "جميع العطور" : " ALL FRAGRANCES   "}
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                  <NavDropdown
-                    title={lang === "ar" ? "الساعات" : "WATCHES"}
-                    id={`offcanvasNavbarDropdown-expand-${expand}`}
-                  >
-                    <NavDropdown.Item
-                      as={Link}
-                      to={`/${lang}/allproducts`}
-                      onClick={() => {
-                        handleType("Watches", "1");
-                        setIsMenuOpen(false);
-                      }}
-                    >
-                      {lang === "ar" ? "رجال" : "FOR HIM"}
-                    </NavDropdown.Item>
-                    <NavDropdown.Item
-                      as={Link}
-                      to={`/${lang}/allproducts`}
-                      onClick={() => {
-                        handleType("Watches", "2");
-                        setIsMenuOpen(false);
-                      }}
-                    >
-                      {lang === "ar" ? "نساء" : "FOR HER"}
-                    </NavDropdown.Item>
-                    <NavDropdown.Item
-                      as={Link}
-                      to={`/${lang}/allproducts`}
-                      onClick={() => {
-                        handleType("Watches", "3");
-                        setIsMenuOpen(false);
-                      }}
-                    >
-                      {lang === "ar" ? "للجنسين" : "UNISEX"}
-                    </NavDropdown.Item>
-                    <NavDropdown.Item
-                      as={Link}
-                      to={`/${lang}/allproducts`}
-                      onClick={() => {
-                        handleType("Watch");
-                        setIsMenuOpen(false);
-                      }}
-                    >
-                      {lang === "ar" ? "جميع العطور" : "    ALL WATCHES    "}
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                  <NavDropdown
-                    title={lang === "ar" ? "الحقائب" : "BAGS & POUCHES"}
-                    id={`offcanvasNavbarDropdown-expand-${expand}`}
-                  >
-                    <NavDropdown.Item
-                      as={Link}
-                      to={`/${lang}/allproducts`}
-                      onClick={() => {
-                        handleType("Bags", "1");
-                        setIsMenuOpen(false);
-                      }}
-                    >
-                      LAPTOP BAGS
-                    </NavDropdown.Item>
-                    <NavDropdown.Item
-                      as={Link}
-                      to={`/${lang}/allproducts`}
-                      onClick={() => {
-                        handleType("Bags", "2");
-                        setIsMenuOpen(false);
-                      }}
-                    >
-                      TRAVEL POUCHES{" "}
-                    </NavDropdown.Item>
-                    <NavDropdown.Item
-                      as={Link}
-                      to={`/${lang}/allproducts`}
-                      onClick={() => {
-                        handleType("Bags", "3");
-                        setIsMenuOpen(false);
-                      }}
-                    >
-                      BACKPACK
-                    </NavDropdown.Item>
-                    <NavDropdown.Item
-                      as={Link}
-                      to={`/${lang}/allproducts`}
-                      onClick={() => {
-                        handleType("Bag");
-                        setIsMenuOpen(false);
-                      }}
-                    >
-                      ALL BAGS & POUCHES
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                  <NavDropdown
+                    </NavDropdown.Item> */}
+                
+                   
+        
+                  {/* <NavDropdown
                     title={lang === "ar" ? "تسوق حسب الماركة" : "SHOP BY BRAND"}
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
                   >
@@ -472,7 +397,7 @@ const Header = ({ cartItems }) => {
                         {brand.brand_name}
                       </NavDropdown.Item>
                     ))}
-                  </NavDropdown>
+                  </NavDropdown> */}
                   <NavDropdown
                     title={lang === "ar" ? "تسوق حسب الموسم" : "SHOP BY SEASON"}
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
@@ -485,7 +410,7 @@ const Header = ({ cartItems }) => {
                           handleType("", "", `${season.season}`);
                           setIsMenuOpen(false);
                         }}
-                        to={`/${lang}/allproducts`}
+                        to={`/${lang}/byseason/${season.season}`}
                       >
                         {season.season}
                       </NavDropdown.Item>
@@ -500,7 +425,7 @@ const Header = ({ cartItems }) => {
                   </Nav.Link>
                   <Nav.Link
                     as={Link}
-                    to={`/${lang}/allproducts`}
+                    to={`/${lang}/allmainproducts`}
                     onClick={() => {
                       handleType("", "", "", "allproducts");
                       setIsMenuOpen(false);

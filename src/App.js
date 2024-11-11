@@ -27,10 +27,12 @@ import Gift from "./Pages/Gift";
 import Refund from "./Pages/Refund";
 import Privacy from "./Pages/Privacy";
 import Terms from "./Pages/Terms";
-import BrandsProduct from "./Pages/BrandsProducts";
+// import BrandsProduct from "./Pages/BrandsProducts";
 import { CartProvider } from "react-use-cart";
 import ForgetPassword from "./Pages/ForgetPassword";
 import ResetPassword from "./Pages/ResetPassword";
+import GetAllproducts from "./Pages/GetAllProducts";
+import GetBySeason from "./Pages/GetBySeason";
 
 const App = () => {
   const [theme] = useThemeHook();
@@ -75,11 +77,13 @@ const App = () => {
           style={{ paddingTop: "100px" }}
         >
           <Routes>
-            <Route path="/:lang/allproducts" element={<Allproducts />} />
-            <Route
+            <Route path="/:lang/allproducts/:main_product_id" element={<Allproducts />} />
+            <Route path="/:lang/allmainproducts" element={<GetAllproducts />} />
+            <Route path="/:lang/byseason/:season" element={<GetBySeason />} />
+            {/* <Route
               path="/:lang/productbybrand/:brand"
               element={<BrandsProduct />}
-            />
+            /> */}
             <Route path="/:lang/cheakOut" element={<CheakOut />} />
             <Route path="/:lang" element={<Home />} />
             <Route path="/:lang/my-account" element={<MyAccount />} />

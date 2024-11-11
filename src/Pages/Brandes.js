@@ -11,7 +11,7 @@ import BrandsData from "../components/BrandsData";
 const Brands = () => {
   const [theme] = useThemeHook();
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 992);
-  const {brands} = BrandsData();
+  const {certificate} = BrandsData();
   const API_URL = process.env.REACT_APP_API_URL;
   const location =useLocation()
   const lang = location.pathname.split("/")[1] || "en";
@@ -67,24 +67,24 @@ const Brands = () => {
           theme ? "text-light Title-Brands m-5" : "text-black Title-Brands m-5"
         }
       >
-         {lang === 'ar' ? "الماركات التي تفضلها": "BRANDS YOU LOVE!"}
+         {lang === 'ar' ? "الشهادات": "Certificate"}
       </h3>
 
       {/* Render different layouts based on screen size */}
       {isLargeScreen ? (
         <div className="row m-4">
-          {brands.map((brand, index) => (
+          {certificate.map((cert, index) => (
             <div
               key={index}
               className="col-6 col-sm-4 col-md-2 text-center brand-image-container "
             >
-              <Link
-                to={`productbybrand/${brand.brand_name}`}
+              {/* <Link
+                to={`productbybrand/${cert.certificate_name}`}
                 style={{ textDecoration: "none" }}
-              >
+              > */}
                 <Image
-                  src={`${API_URL}/${brand.brand_img}`}
-                  alt={brand.brand_name}
+                  src={`${API_URL}/${cert.certificate_img}`}
+                  alt={cert.certificate_name}
                   loading="lazy"
                   className="brand-image img-fluid"  />
                 <p
@@ -92,18 +92,18 @@ const Brands = () => {
                     theme
                       ? "bg-light-black text-light margin_section full-screen-slider"
                       : "bg-light text-black margin_section full-screen-slider" } >
-                  {brand.brand_name} <IoIosArrowRoundForward size="1.5rem" />
+                  {cert.certificate_name} <IoIosArrowRoundForward size="1.5rem" />
                 </p>
-              </Link>
+              {/* </Link> */}
             </div>
           ))}
         </div>
       ) : (
         <Slider {...sliderSettings}>
-          {brands.map((brand) => (
-            <div key={brand.id} className="text-center brand-image-container ">
+          {certificate.map((cert) => (
+            <div key={cert.id} className="text-center brand-image-container ">
               <Link
-                to={`productbybrand/${brand.brand_name}`}
+                to={`productbybrand/${cert.certificate_name}`}
                 style={{ textDecoration: "none"}}
                 className={
                   theme
@@ -111,11 +111,11 @@ const Brands = () => {
                     : "bg-light text-black  full-screen-slider" }
               >
                 <Image
-                  src={`${API_URL}/${brand.brand_img}`}
-                  alt={brand.brand_name}
+                  src={`${API_URL}/${cert.certificate_img}`}
+                  alt={cert.certificate_name}
                   className="brand-image img-fluid p-1"
                 />
-                {brand.brand_name} <IoIosArrowRoundForward size="1.5rem" />
+                {cert.certificate_name} <IoIosArrowRoundForward size="1.5rem" />
               </Link>
             </div>
           ))}

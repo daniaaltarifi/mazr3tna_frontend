@@ -8,7 +8,7 @@ const AddToCartBtn = ({
   price,
   quantity,
   title,
-  selectedColor,
+  selectedWeight,
   selectedSize,
   first_image,
   addItem,
@@ -41,7 +41,7 @@ const AddToCartBtn = ({
         title: title,
         quantity: quantity,
         price: price,
-        color: selectedColor,
+        weight: selectedWeight,
         size: selectedSize,
         first_image: first_image,
       };
@@ -68,7 +68,7 @@ const AddToCartBtn = ({
         title: title,
         quantity: quantity,
         price: price,
-        color: selectedColor,
+        weight: selectedWeight,
         size: selectedSize,
         first_image: first_image,
       };

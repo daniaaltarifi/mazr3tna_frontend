@@ -159,8 +159,7 @@ const Cart = () => {
                   </td>
                   <td>
                     <h6>{item.title}</h6>
-                    <h6>{item.size}</h6>
-                    <h6>{item.color}</h6>
+                    <h6>{item.size ? item.size :`${item.weight} kg`  }</h6>
                     {item.wrap_type && (
                       <div>
                         <div>Style:{item.wrap_type}</div>

@@ -9,7 +9,7 @@ import FilterAndSort from "../components/FilterAndSort";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 // Set items per page to 16
-function Allproducts({ cartItems }) {
+function GetBySeason({ cartItems }) {
   const [theme] = useThemeHook();
   const location = useLocation();
   const lang = location.pathname.split("/")[1] || "en";
@@ -18,53 +18,19 @@ function Allproducts({ cartItems }) {
   const [isCanvasOpen, setCanvasOpen] = useState(false);
   const [productType, setProductType] = useState("");
   const [mainType, setMainType] = useState("");
-  const [season, setSeason] = useState("");
+//   const [season, setSeason] = useState("");
   const [allproducts, setAllProducts] = useState([]);
   const [productlocal, setProductLocal] = useState("");
-const {main_product_id} = useParams()
   const [filteredProducts, setFilteredProducts] = useState([]);
-  // useEffect(() => {
-  //   const storedData = localStorage.getItem("productInfo");
-  //   if (storedData) {
-  //     const productInfo = JSON.parse(storedData);
-  //     setMainType(productInfo.mainType);
-  //     setProductType(productInfo.productType);
-  //     setSeason(productInfo.season);
-  //     setProductLocal(productInfo.allproductData);
-  //   }
-  //   let fetchURL;
-  //   if (mainType && productType) {
-  //     fetchURL = `${API_URL}/product/bysubtype/subtype?type=${mainType}&subtype=${productType}`;
-  //   } else if (mainType && !productType) {
-  //     fetchURL = `${API_URL}/product/bymaintype/${mainType}`;
-  //   } else if (!mainType && !productType && season) {
-  //     fetchURL = `${API_URL}/product/get/productbyseason/${season}`;
-  //   } else if (!mainType && !productType && !season && productlocal) {
-  //     fetchURL = `${API_URL}/product/get/allproducts`;
-  //   }
-
-  //   if (fetchURL) {
-  //     fetch(fetchURL)
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         setAllProducts(data); // Set all products without sorting
-  //         setFilteredProducts(data); // Initially set filtered products to all products
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error fetching products:", error);
-  //       });
-  //   }
-
-  // }, [mainType, productType, season, productlocal]);
+ const {season}=useParams()
 
    useEffect(() => {
     const fetchData = async () => {
       try {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        const response = await axios(`${API_URL}/mainproduct/main_product_filter/${main_product_id}`);
+        // await new Promise((resolve) => setTimeout(resolve, 1000));
+        const response = await axios(`${API_URL}/product/get/productbyseason/${season}`);
         setAllProducts(response.data);
         setFilteredProducts(response.data);
-        // console.log("firstProduct",response.data)
         setIsLoading(false)
 
       } catch (error) {
@@ -76,60 +42,7 @@ const {main_product_id} = useParams()
   }, []);
 
   const [isLoading, setIsLoading] = useState(true);
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  //   const handleStorageChange = () => {
-  //     const storedData = localStorage.getItem("productInfo");
-  //     if (storedData) {
-  //       const productInfo = JSON.parse(storedData);
-  //       setMainType(productInfo.mainType);
-  //       setProductType(productInfo.productType);
-  //       setSeason(productInfo.season);
-  //       setProductLocal(productInfo.allproductData);
-  //     }
-  //     let fetchURL;
-  //     if (mainType && productType) {
-  //       fetchURL = `${API_URL}/product/bysubtype/subtype?type=${mainType}&subtype=${productType}`;
-  //     } else if (mainType && !productType) {
-  //       fetchURL = `${API_URL}/product/bymaintype/${mainType}`;
-  //     } else if (!mainType && !productType && season) {
-  //       fetchURL = `${API_URL}/product/get/productbyseason/${season}`;
-  //     } else if (!mainType && !productType && !season && productlocal) {
-  //       fetchURL = `${API_URL}/product/get/allproducts`;
-  //     }
-  //     if (fetchURL) {
-  //       setIsLoading(true); // Set loading state before fetching
-  //       fetch(fetchURL)
-  //         .then((response) => {
-  //           if (!response.ok) {
-  //             throw new Error("Network response was not ok");
-  //           }
-  //           return response.json();
-  //         })
-  //         .then((data) => {
-  //           setAllProducts(data);
-  //           console.log("product",data)
-  //           setFilteredProducts(data);
-  //         })
-  //         .catch((error) => {
-  //           console.error("Error fetching products:", error);
-  //         })
-  //         .finally(() => {
-  //           setIsLoading(false); // Reset loading state after fetching
-  //         });
-  //     } else {
-  //       setIsLoading(false); // Reset loading if no fetch URL
-  //     }
-  //   };
-  //   // Listen for custom event
-  //   window.addEventListener("productInfoUpdated", handleStorageChange);
-  //   // Initial check when component mounts
-  //   handleStorageChange();
-  //   return () => {
-  //     window.removeEventListener("productInfoUpdated", handleStorageChange);
-  //   };
-  // }, [mainType, productType, season, productlocal]);
-
+  
   const toggleCanvas = () => {
     setCanvasOpen(!isCanvasOpen);
   };
@@ -282,4 +195,4 @@ const {main_product_id} = useParams()
   );
 }
 
-export default Allproducts;
+export default GetBySeason;

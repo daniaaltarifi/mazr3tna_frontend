@@ -21,7 +21,6 @@ const ProductDetails = ({cartItems}) => {
   const [quantity, setQuantity] = useState(1);
   const API_URL = process.env.REACT_APP_API_URL;
   const REACT_APP_URL_WEBSITE = process.env.REACT_APP_URL_WEBSITE;
-  const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const { id } = useParams();
   const [productData, setProductData] = useState([]);
@@ -30,8 +29,8 @@ const ProductDetails = ({cartItems}) => {
   const [activeImage, setActiveImage] = useState(null);
   const [after_price, setafter_price] = useState(null);
   const [before_price, setbefore_price] = useState(null);
-  const [availableColors, setAvailableColors] = useState([]);
   const [isCanvasOpen, setCanvasOpen] = useState(false);
+  const [selectedWeight, setSelectedWeight] = useState(null)
   const toggleCanvas = () => {
     setCanvasOpen(!isCanvasOpen);
   };
@@ -40,8 +39,9 @@ const ProductDetails = ({cartItems}) => {
     window.scrollTo(0, 0);
     const fetchProductDetails = async () => {
       try {
-        const response = await axios.get(`${API_URL}/product/${id}`);
+        const response = await axios.get(`${API_URL}/product/getbyid/${id}`);
         setProductData(response.data);
+        console.log("first",response.data)
       } catch (error) {
         console.error("Error fetching product details:", error);
       } finally {
@@ -56,19 +56,16 @@ const ProductDetails = ({cartItems}) => {
   useEffect(() => {
     if (productData) {
       const { images, variants } = productData;
-
+  
       if (images && images.length > 0) {
         setLargeImage(images[0]);
         setActiveImage(images[0]);
       }
-
       if (variants && variants.length > 0) {
         const firstVariant = variants[0];
-        if (firstVariant.prices) {
-          setAvailableColors(firstVariant.prices);
+        if (firstVariant.prices && firstVariant.prices.length > 0) {
           setafter_price(firstVariant.prices[0]?.after_price || "");
           setbefore_price(firstVariant.prices[0]?.before_price || "");
-          setSelectedColor(firstVariant.prices[0]?.color || null);
         } else {
           setafter_price(firstVariant.after_price || "");
           setbefore_price(firstVariant.before_price || "");
@@ -76,6 +73,7 @@ const ProductDetails = ({cartItems}) => {
       }
     }
   }, [productData]);
+  
   // const handleCheckout = () => {
   //   navigate(`/${lang}/cheakOut`);
   // };
@@ -103,25 +101,61 @@ const ProductDetails = ({cartItems}) => {
       setQuantity(prev => prev - 1);
     }
   };
-
   const handleSizeButtonClick = (size) => {
-    const selectedVariant = productData.variants.find(v => v.size === size);
+    // Find the selected variant by size
+    const selectedVariant = productData.variants.find(
+      (v) => v.size === size
+    );
+  
     if (selectedVariant) {
-      setAvailableColors(selectedVariant.prices);
-      setafter_price(selectedVariant.prices[0]?.after_price || "");
-      setbefore_price(selectedVariant.prices[0]?.before_price || "");
-      setSelectedSize(size);
+      // Update prices based on the selected variant
+      if (selectedVariant.prices && selectedVariant.prices.length > 0) {
+        setafter_price(selectedVariant.prices[0]?.after_price || "");
+        setbefore_price(selectedVariant.prices[0]?.before_price || "");
+      } else {
+        // Fallback to using the variant's direct price if no prices array
+        setafter_price(selectedVariant.after_price || "");
+        setbefore_price(selectedVariant.before_price || "");
+      }
+      setSelectedSize(size);  // Set the selected size
+    } else {
+      console.warn(`Variant with size ${size} not found.`);
     }
   };
+  
+  // Separate function for handling weight selection
+  const handleWeightButtonClick = (weight) => {
+    // Find the selected variant by weight
+    const selectedVariant = productData.variants.find(
+      (v) => v.weight === weight
+    );
+  
+    if (selectedVariant) {
+      // Update prices based on the selected variant
+      if (selectedVariant.prices && selectedVariant.prices.length > 0) {
+        setafter_price(selectedVariant.prices[0]?.after_price || "");
+        setbefore_price(selectedVariant.prices[0]?.before_price || "");
+      } else {
+        // Fallback to using the variant's direct price if no prices array
+        setafter_price(selectedVariant.after_price || "");
+        setbefore_price(selectedVariant.before_price || "");
+      }
+      setSelectedWeight(weight);  // Set the selected weight
+    } else {
+      console.warn(`Variant with weight ${weight} not found.`);
+    }
+  };
+  
+  
 
-  const handleColorButtonClick = (color) => {
-    const selectedVariant = availableColors.find(p => p.color === color);
-    if (selectedVariant) {
-      setafter_price(selectedVariant.after_price);
-      setbefore_price(selectedVariant.before_price);
-      setSelectedColor(color);
-    }
-  };
+  // const handleColorButtonClick = (color) => {
+  //   const selectedVariant = availableColors.find(p => p.color === color);
+  //   if (selectedVariant) {
+  //     setafter_price(selectedVariant.after_price);
+  //     setbefore_price(selectedVariant.before_price);
+  //     setSelectedColor(color);
+  //   }
+  // };
   const shareProduct = (product) => {
     const shareMessage = `Check out this product: ${product.name} \n ${REACT_APP_URL_WEBSITE}/product-details/${product.id}`;
     const mailtoLink = `mailto:?subject=Check out this product!&body=${encodeURIComponent(
@@ -188,13 +222,16 @@ const ProductDetails = ({cartItems}) => {
             Taxes included.
           </div>
           {/* handle the color and sizes */}
-          {variants.length > 0  && variants.some(variant => variant.size) ?  (
-        <div>
-          <div className={`mt-3 ${theme ? "text-dark-primary" : ""}`}>
-            Size
-          </div>
-          <div style={{ display: "flex", flexWrap: "wrap", margin: "10px 0" }}>
-            {variants.map((variant, index) => (
+          {variants.length > 0 && (
+  <div>
+    {/* Render Size Buttons */}
+    {variants.some(variant => variant.size) && (
+      <div>
+        <div className={`mt-3 ${theme ? "text-dark-primary" : ""}`}>Size</div>
+        <div style={{ display: "flex", flexWrap: "wrap", margin: "10px 0" }}>
+          {variants
+            .filter((variant) => variant.size)  // Only show variants with a size
+            .map((variant, index) => (
               <Button
                 key={index}
                 onClick={() => handleSizeButtonClick(variant.size)}
@@ -213,45 +250,42 @@ const ProductDetails = ({cartItems}) => {
                 {variant.size}
               </Button>
             ))}
-          </div>
+        </div>
+      </div>
+    )}
 
-          {selectedSize && availableColors.length > 0 && (
-  <div>
-  
-    <div style={{ display: "flex", flexWrap: "wrap", margin: "10px 0" }}>
-      
-      {availableColors.map((priceData, colorIndex) => 
-        priceData.color && (  // Check if priceData.color exists
-          <div>
-          <Button
-            key={colorIndex}
-            onClick={() => handleColorButtonClick(priceData.color)}
-            className={`${
-              after_price === priceData.after_price
-                ? "bg-black text-white"
-                : "bg-gray-300 text-black"
-            } py-2 m-1`}
-            style={{
-              border: 0,
-              width: "80px",
-              cursor: "pointer",
-              backgroundColor: "white",
-            }}
-          >
-            {priceData.color}
-          </Button>
-          </div>
-
-        )
-      )}
-    </div>
+    {/* Render Weight Buttons */}
+    {variants.some(variant => variant.weight) && (
+      <div>
+        <div className={`mt-3 ${theme ? "text-dark-primary" : ""}`}>Weight</div>
+        <div style={{ display: "flex", flexWrap: "wrap", margin: "10px 0" }}>
+          {variants
+            .filter((variant) => variant.weight)  // Only show variants with a weight
+            .map((variant, index) => (
+              <Button
+                key={index}
+                onClick={() => handleWeightButtonClick(variant.weight)}  // Pass weight only
+                className={`${
+                  selectedWeight === variant.weight
+                    ? "bg-black text-white"
+                    : "bg-gray-300 text-black"
+                } py-2 m-1`}
+                style={{
+                  border: 0,
+                  width: "80px",
+                  cursor: "pointer",
+                  backgroundColor: "white",
+                }}
+              >
+                {variant.weight} kg
+              </Button>
+            ))}
+        </div>
+      </div>
+    )}
   </div>
 )}
 
-        </div>
-      ) : (
-        <p></p>
-      )}
           <div className={`mt-3 ${theme ? "text-dark-primary" : ""}`}>
             Quantity
           </div>
@@ -303,7 +337,7 @@ const ProductDetails = ({cartItems}) => {
         title={product.name}
         quantity={quantity}
         price={after_price}
-        selectedColor={selectedColor}
+        selectedWeight={selectedWeight}
         selectedSize={selectedSize}
         first_image= {`${API_URL}/${largeImage}`}
         addItem={addItem}

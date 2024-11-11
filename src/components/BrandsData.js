@@ -5,23 +5,23 @@ import axios from "axios";
 const API_URL = process.env.REACT_APP_API_URL;
 
 const BrandsData = () => {
-  const [brands, setBrands] = useState([]);
+  const [certificate, setcertificate] = useState([]);
 
   useEffect(() => {
-    const fetchBrands = async () => {
+    const fetchcertificates = async () => {
       try {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        const response = await axios(`${API_URL}/product/get/brands`);
-        setBrands(response.data);
+        const response = await axios(`${API_URL}/product/get/certificates`);
+        setcertificate(response.data);
       } catch (error) {
         console.error("Error fetching brands:", error);
       }
     };
     
-    fetchBrands();
+    fetchcertificates();
   }, []);
 
-  return { brands };
+  return { certificate };
 };
 
 export default BrandsData;
