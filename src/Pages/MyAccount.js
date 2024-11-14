@@ -37,6 +37,7 @@ const MyAccount = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [orderItem, setOrderItem] = useState([]);
   useEffect(()=>{
+    window.scrollTo(0, 0);
 const fetchOrdeItems= async ()=>{
   try {
     const response = await axios.get(`${API_URL}/orders/getorderbyid/${storedUser.id}` )
@@ -62,7 +63,7 @@ fetchOrdeItems()
       if (response.data.Status === "Logout Success") {
         navigate(`/${lang}/sign-in`);
         localStorage.removeItem("account");
-        window.location.reload()
+        // window.location.reload()
       }
     } catch (error) {
       console.error("Logout error:", error);

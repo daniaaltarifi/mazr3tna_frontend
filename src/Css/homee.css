@@ -44,7 +44,7 @@
 }
 
 .text-center p {
-    color: #636060;
+    color: #4B2E22;
     font-size: 0.99rem;
     margin: 0 0 5px; /* Space between paragraph and button */
     letter-spacing: 0.1rem;
@@ -61,7 +61,7 @@
 .text-center .btn {
    
     font-size: 12px;
-    border: 2px solid #8b8a8a; /* Add border color */
+    border: 2px solid #6A994E; /* Add border color */
     padding: 10px 20px; /* Adjust padding */
     color: #000; /* Text color */
     background-color: transparent; /* Transparent background */
@@ -79,7 +79,11 @@
     transform: scale(1.05); /* Slightly enlarge the button */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow on hover */
 }
-
+.banner_img{
+    object-fit: cover;
+    height: 275px;
+    width: 500px;
+}
 @media (max-width: 768px) {
     .responsive-carousel {
         height: 300px;

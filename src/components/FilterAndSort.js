@@ -10,11 +10,10 @@ function FilterAndSort({ products, setFilteredProducts }) {
   const API_URL = process.env.REACT_APP_API_URL;
   const [isOpen, setIsOpen] = useState(false);
   const [sortOption, setSortOption] = useState("");
-  const [brands, setBrands] = useState([]);
   const [sizes, setSizes] = useState([]);
   const [mainType, setMainType] = useState("");
   const [availability, setAvailability] = useState("");
-  const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedsource, setSelectedsource] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
@@ -43,34 +42,34 @@ function FilterAndSort({ products, setFilteredProducts }) {
     const sortedAndFilteredProducts = sortProducts(filtered, selectedOption); // Sort the filtered products
     setFilteredProducts(sortedAndFilteredProducts); // Update the filtered products
   };
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch brands
-        const brandsResponse = await axios(`${API_URL}/product/get/brands`);
-        setBrands(brandsResponse.data);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       // Fetch brands
+  //       const brandsResponse = await axios(`${API_URL}/product/get/brands`);
+  //       setBrands(brandsResponse.data);
 
-        // Fetch sizes based on mainType
-        const storedData = localStorage.getItem("productInfo");
-        if (storedData) {
-          const productInfo = JSON.parse(storedData);
-          setMainType(productInfo.mainType);
-        }
+  //       // Fetch sizes based on mainType
+  //       const storedData = localStorage.getItem("productInfo");
+  //       if (storedData) {
+  //         const productInfo = JSON.parse(storedData);
+  //         setMainType(productInfo.mainType);
+  //       }
 
-        const sizeEndpoint =
-          mainType === "Fragrance"
-            ? `${API_URL}/product/get/sizesfragrances`
-            : `${API_URL}/product/get/sizesbags`;
+  //       const sizeEndpoint =
+  //         mainType === "Fragrance"
+  //           ? `${API_URL}/product/get/sizesfragrances`
+  //           : `${API_URL}/product/get/sizesbags`;
 
-        const sizesResponse = await axios(sizeEndpoint);
-        setSizes(sizesResponse.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+  //       const sizesResponse = await axios(sizeEndpoint);
+  //       setSizes(sizesResponse.data);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
 
-    fetchData();
-  }, [mainType]);
+  //   fetchData();
+  // }, [mainType]);
   const filterProducts = () => {
     let updatedProducts = [...products];
     // Filter by availability
@@ -80,11 +79,15 @@ function FilterAndSort({ products, setFilteredProducts }) {
       );
     }
     // Filter by selected brand
-    if (selectedBrand) {
-      updatedProducts = updatedProducts.filter(
-        (product) => product.brand_name === selectedBrand
-      );
-    }
+   // Assuming selectedsource is the state that holds the selected source value ('local', 'imported', or '')
+if (selectedsource) {
+  updatedProducts = updatedProducts.filter((product) =>
+    selectedsource === "local" 
+      ? product.sourcing === "local"  
+      : product.sourcing !== "local"  
+  );
+}
+
     // Filter by selected size
     if (selectedSize) {
       updatedProducts = updatedProducts.filter(
@@ -105,12 +108,18 @@ function FilterAndSort({ products, setFilteredProducts }) {
   };
   const handleAvailabilityChange = (event) => {
     setAvailability(event.target.value);
-    setSelectedBrand("");
+    setSelectedsource("");
+    setSelectedSize("");
+  };
+  const handleSourcingChange = (event) => {
+    setSelectedsource(event.target.value);
+    setAvailability("");
     setSelectedSize("");
   };
 
-  const handleBrandChange = (event) => {
-    setSelectedBrand(event.target.value);
+  const handleSourceChange = (event) => {
+    setSelectedsource(event.target.value);
+    console.log("target: " + event.target.value);
     setAvailability("");
     setSelectedSize("");
   };
@@ -118,7 +127,7 @@ function FilterAndSort({ products, setFilteredProducts }) {
   const handleSizeChange = (event) => {
     setSelectedSize(event.target.value);
     setAvailability("");
-    setSelectedBrand("");
+    setSelectedsource("");
   };
   const handleMinPriceChange = (event) => {
     setMinPrice(event.target.value);
@@ -130,9 +139,10 @@ function FilterAndSort({ products, setFilteredProducts }) {
     const filtered = filterProducts(); // Get currently filtered products
     const sortedAndFilteredProducts = sortProducts(filtered, sortOption); // Sort the filtered products
     setFilteredProducts(sortedAndFilteredProducts); // Update state
+    console.log("fillected", sortedAndFilteredProducts)
   }, [
     availability,
-    selectedBrand,
+    selectedsource,
     selectedSize,
     minPrice,
     maxPrice,
@@ -253,22 +263,20 @@ function FilterAndSort({ products, setFilteredProducts }) {
 
             <div className="cont_sort">
               <span className={`mt-1 ${theme ? "text-light" : "text-black"}`}>
-                Brand:
+                Source:
               </span>
               <select
                 className={`form-select custom-select ${
                   theme ? "bg-light-black text-light" : "bg-light text-black"
                 }`}
-                onChange={handleBrandChange}
+                onChange={handleSourcingChange}
               >
-                <option value="">Select Brand</option>
-                {brands.map((brand) => (
-                  <option value={brand.brand_name} key={brand.id}>
-                    {brand.brand_name}
-                  </option>
-                ))}
+                <option value="">Select Source</option>
+                <option value="local">Local</option>
+                <option value="imported">Imported</option>
               </select>
             </div>
+
             {mainType && (
               <div className="cont_sort">
                 <span className={`mt-1 ${theme ? "text-light" : "text-black"}`}>

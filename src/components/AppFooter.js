@@ -51,7 +51,7 @@ function AppFooter() {
             />
         </Form.Group> */}
           <Image
-                src={require('../images/Logo.avif')}
+                src={require('../images/modern-farm-logo-vector-24193212-removebg-preview.png')}
                 style={{ maxHeight: "70px", margin: "10px",width:"70px",height:"70px" }}
                 thumbnail
                 fluid

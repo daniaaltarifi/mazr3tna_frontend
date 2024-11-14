@@ -69,9 +69,7 @@ const ProductInCheak = ({
                 {/* Image */}
                 <Image
                   src={
-                    item.wrap_type
-                      ? `${API_URL}/${item.wrap_img}`
-                      : `${API_URL}/${item.img}`
+                    `${API_URL}/${item.img}`
                   }
                   className="img-fluid img-card"
                   alt={item.name}
@@ -80,21 +78,12 @@ const ProductInCheak = ({
                 {/* Title and Price */}
                 <div className="d-flex justify-content-between w-100">
                   <span>{item.title}</span>
-                  <span>{item.size}</span>
-                  <span>{item.color}</span>
-                  {item.wrap_type && (
-                    <div style={{ fontSize: "12px" }}>
-                      <span>Style:{item.wrap_type}</span>
-                      <span>Message:{item.message}</span>
-                      <span>Delivery Date:{item.delivery_date}</span>
-                    </div>
-                  )}
-                  <span>({item.quantity}) </span>
+                  <span>{item.size ? ` Size: ${item.size}` : `${item.weight} kg`}</span>
+                  <span> Q ({item.quantity}) </span>
                   <span>{item.price} JD</span>
                 </div>
               </div>
-              {/* <h6 className="Price">Size: 100 ml</h6>{" "} */}
-              {/* Size can be passed as a prop if variable */}
+             
             </li>
           ))
         )}

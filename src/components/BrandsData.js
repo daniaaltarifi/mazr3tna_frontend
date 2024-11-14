@@ -11,7 +11,7 @@ const BrandsData = () => {
     const fetchcertificates = async () => {
       try {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        const response = await axios(`${API_URL}/product/get/certificates`);
+        const response = await axios(`${API_URL}/certificate/get/certificates`);
         setcertificate(response.data);
       } catch (error) {
         console.error("Error fetching brands:", error);

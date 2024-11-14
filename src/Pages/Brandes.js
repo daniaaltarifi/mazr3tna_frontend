@@ -72,7 +72,7 @@ const Brands = () => {
 
       {/* Render different layouts based on screen size */}
       {isLargeScreen ? (
-        <div className="row m-4">
+        <div className="row m-4 justify-content-center">
           {certificate.map((cert, index) => (
             <div
               key={index}
@@ -92,7 +92,7 @@ const Brands = () => {
                     theme
                       ? "bg-light-black text-light margin_section full-screen-slider"
                       : "bg-light text-black margin_section full-screen-slider" } >
-                  {cert.certificate_name} <IoIosArrowRoundForward size="1.5rem" />
+                  {cert.certificate_name} 
                 </p>
               {/* </Link> */}
             </div>

@@ -25,10 +25,12 @@ function GetBySeason({ cartItems }) {
  const {season}=useParams()
 
    useEffect(() => {
+     window.scrollTo(0, 0);
+
     const fetchData = async () => {
       try {
         // await new Promise((resolve) => setTimeout(resolve, 1000));
-        const response = await axios(`${API_URL}/product/get/productbyseason/${season}`);
+        const response = await axios(`${API_URL}/certificate/get/productbyseason/${season}`);
         setAllProducts(response.data);
         setFilteredProducts(response.data);
         setIsLoading(false)
@@ -39,7 +41,7 @@ function GetBySeason({ cartItems }) {
     };
     
     fetchData();
-  }, []);
+  }, [season]);
 
   const [isLoading, setIsLoading] = useState(true);
   

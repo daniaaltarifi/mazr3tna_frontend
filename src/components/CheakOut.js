@@ -55,11 +55,8 @@ function CheakOut({ products = [] }) {
           product_id: item.productID, // Assuming `id` corresponds to `product_id`
           quantity: item.quantity,
           size: item.size,
-          color: item.color,
           price: item.price,
-          message: item.message,
-          wrap_type: item.wrap_type,
-          delivery_date: item.delivery_date,
+          weight: item.weight,
         })),
       });
       // Update balance only if payment method is wallet

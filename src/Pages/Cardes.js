@@ -51,7 +51,7 @@ const Cardes = () => {
   const [latestProduct, setLatestProduct] = useState([]);
   useEffect(() => {
     const getLatestProduct = async () => {
-      const res = await axios.get(`${API_URL}/product/get/latestproducts`);
+      const res = await axios.get(`${API_URL}/certificate/get/latestproducts`);
       setLatestProduct(res.data);
     };
     getLatestProduct();
@@ -70,7 +70,7 @@ const Cardes = () => {
           className={
             theme
               ? "text-light we_help_you_home m-5"
-              : "text-black we_help_you_home m-5"
+              : " we_help_you_home m-5"
           }
         >
           LATEST ARRIVALS

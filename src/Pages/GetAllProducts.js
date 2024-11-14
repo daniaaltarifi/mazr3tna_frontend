@@ -25,6 +25,7 @@ function GetAllproducts({ cartItems }) {
  
 
    useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchData = async () => {
       try {
         // await new Promise((resolve) => setTimeout(resolve, 1000));

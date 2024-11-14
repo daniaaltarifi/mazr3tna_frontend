@@ -13,11 +13,10 @@ import { IoIosSearch } from "react-icons/io";
 import { BsInstagram } from "react-icons/bs";
 import { FaFacebook } from "react-icons/fa";
 import { RiTiktokFill } from "react-icons/ri";
-import Logo from "../images/Logo.avif";
+import Logo from "../images/modern-farm-logo-vector-24193212-removebg-preview.png";
 import RightCart from "./RightCart";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import BrandsData from "./BrandsData";
 import axios from "axios";
 import FetchCartData from "./FetchCardData";
 import SearchBar from "./SearchBar";
@@ -31,7 +30,6 @@ const Header = ({ cartItems }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const API_URL = process.env.REACT_APP_API_URL;
-  const { brands } = BrandsData();
   const [seasons, setseasons] = useState([]);
   const [openSearch, setOpenSearch] = useState(false);
   const lang = location.pathname.split("/")[1] || "en";
@@ -41,11 +39,11 @@ const Header = ({ cartItems }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedOption, setSelectedOption] = useState(lang);
   const [banners, setBanners] = useState([]);
-  const { isEmpty, totalItems } = useCart();
+  const { totalItems } = useCart();
   const [productType, setProductType] = useState("");
   const [main_product, setMain_product] = useState([]);
-  
-  const numberofitemsincart = !user ? totalItems : cart.length;
+
+  // const numberofitemsincart = !user ? totalItems : cart.length;
   const handleSelection = (event) => {
     const newLang = event.target.value;
     setSelectedOption(newLang);
@@ -58,16 +56,16 @@ const Header = ({ cartItems }) => {
     setSelectedOption(lang);
     const fetchData = async () => {
       try {
-        const [seasonResponse, codeResponse,main_productRes] = await Promise.all([
-          axios(`${API_URL}/product/get/season`),
-          axios(`${API_URL}/discountcode/getcodes`),
-          axios(`${API_URL}/mainproduct/getmainproduct`),
-          
-        ]);
+        const [seasonResponse, codeResponse, main_productRes] =
+          await Promise.all([
+            axios(`${API_URL}/certificate/get/season`),
+            axios(`${API_URL}/discountcode/getcodes`),
+            axios(`${API_URL}/mainproduct/getmainproduct`),
+          ]);
         setseasons(seasonResponse.data);
         setBanners(codeResponse.data);
         setMain_product(main_productRes.data);
-        console.log("first page loaded",main_productRes.data)
+        console.log("first page loaded", main_productRes.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -114,15 +112,15 @@ const Header = ({ cartItems }) => {
   }, [darkMode, setThemeMode]);
 
   useEffect(() => {
-    // const getproductForSearch = async () => {
-    //   try {
-    //     const res = await axios.get(`${API_URL}/product/get/allproducts`);
-    //     setAllproductData(res.data);
-    //   } catch (error) {
-    //     console.error("Error fetching products:", error);
-    //   }
-    // };
-    // getproductForSearch();
+    const getproductForSearch = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/product/get/allproducts`);
+        setAllproductData(res.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+    getproductForSearch();
   }, [openSearch]);
 
   const handleType = (
@@ -217,7 +215,12 @@ const Header = ({ cartItems }) => {
             <Navbar.Brand className="mx-auto">
               <Image
                 src={Logo}
-                style={{ maxHeight: "70px", margin: "10px", width: "70px",height:"70px" }}
+                style={{
+                  maxHeight: "70px",
+                  margin: "10px",
+                  width: "70px",
+                  height: "70px",
+                }}
                 thumbnail
                 fluid
                 roundedCircle
@@ -243,7 +246,6 @@ const Header = ({ cartItems }) => {
                         handleInputChange={handleInputChange}
                         setOpenSearch={setOpenSearch}
                         setIsMenuOpen={setIsMenuOpen}
-
                       />
                     </div>
                   </nav>
@@ -271,12 +273,9 @@ const Header = ({ cartItems }) => {
               } `}
             >
               <GrCart size="1.2rem" />
-              {/* {!isEmpty && ( */}
-              <span style={{ position: "relative" }}>
-                {/* {!user ? totalItems : cart.length} */}
+             {/* <span style={{ position: "relative" }}>
                 {numberofitemsincart}
-              </span>
-              {/* )} */}
+              </span> */}
             </Link>
           </Nav>
         </Container>
@@ -314,33 +313,35 @@ const Header = ({ cartItems }) => {
                   darkMode ? "text-dark-primary" : "text-light-primary"
                 }`}
               >
-                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
+                {/* <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
                   Hadiyyeh
-                </Offcanvas.Title>
+                </Offcanvas.Title> */}
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-center flex-grow-1 pe-3">
                   <Nav.Link
                     as={Link}
+                    className="nav_link_header"
                     to="/"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {lang === "ar" ? "الرئيسية" : "HOME"}
                   </Nav.Link>
-                  {main_product.map((catg)=>(
-                   <Nav.Link
-                   as={Link}
-                   key={catg.id}
-                   to={`/${lang}/allproducts/${catg.id}`}
-                  //  onClick={() => {
-                  //    handleType("", "", "", "allproducts");
-                  //    setIsMenuOpen(false);
-                  //  }}
-                 >
-                   {catg.name}
-                 </Nav.Link>
+                  {main_product.map((catg) => (
+                    <Nav.Link
+                      as={Link}
+                      className="nav_link_header"
+                      key={catg.id}
+                      to={`/${lang}/allproducts/${catg.id}`}
+                      //  onClick={() => {
+                      //    handleType("", "", "", "allproducts");
+                      //    setIsMenuOpen(false);
+                      //  }}
+                    >
+                      {catg.name}
+                    </Nav.Link>
                   ))}
-                    {/* <NavDropdown.Item
+                  {/* <NavDropdown.Item
                       as={Link}
                       to={`/${lang}/allproducts`}
                       onClick={() => {
@@ -380,9 +381,7 @@ const Header = ({ cartItems }) => {
                     >
                       {lang === "ar" ? "جميع العطور" : " ALL FRAGRANCES   "}
                     </NavDropdown.Item> */}
-                
-                   
-        
+
                   {/* <NavDropdown
                     title={lang === "ar" ? "تسوق حسب الماركة" : "SHOP BY BRAND"}
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
@@ -401,11 +400,12 @@ const Header = ({ cartItems }) => {
                   <NavDropdown
                     title={lang === "ar" ? "تسوق حسب الموسم" : "SHOP BY SEASON"}
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
-                  >
+className="nav_dropdown_header"                    >
                     {seasons.map((season, index) => (
                       <NavDropdown.Item
                         key={index}
                         as={Link}
+                        className="nav_link_header"
                         onClick={() => {
                           handleType("", "", `${season.season}`);
                           setIsMenuOpen(false);
@@ -420,6 +420,8 @@ const Header = ({ cartItems }) => {
                     as={Link}
                     to={`/${lang}/gift`}
                     onClick={() => setIsMenuOpen(false)}
+                    className="nav_link_header"
+
                   >
                     {lang === "ar" ? " المحفظة" : "WALLET"}
                   </Nav.Link>
@@ -430,6 +432,7 @@ const Header = ({ cartItems }) => {
                       handleType("", "", "", "allproducts");
                       setIsMenuOpen(false);
                     }}
+                    className="nav_link_header"
                   >
                     {lang === "ar" ? "جميع المنتجات" : "ALL PRODUCTS"}
                   </Nav.Link>
@@ -469,7 +472,7 @@ const Header = ({ cartItems }) => {
                   </a>
                 </div>
                 {/* Icons toggle (dark mode, account, translate) centered like social-icons-toggle */}
-                  <div className="social-icons-toggle d-flex d-md-none justify-content-center" >
+                <div className="social-icons-toggle d-flex d-md-none justify-content-center">
                   <Nav.Link
                     className={
                       darkMode ? "text-dark-primary" : "text-light-primary"
@@ -491,14 +494,13 @@ const Header = ({ cartItems }) => {
                   >
                     <VscAccount size="1.2rem" />
                   </Link>
-                   <SearchBar
-                        searchQuery={searchQuery}
-                        searchResults={searchResults}
-                        handleInputChange={handleInputChange}
-                        setOpenSearch={setOpenSearch}
-                        setIsMenuOpen={setIsMenuOpen}
-
-                      />
+                  <SearchBar
+                    searchQuery={searchQuery}
+                    searchResults={searchResults}
+                    handleInputChange={handleInputChange}
+                    setOpenSearch={setOpenSearch}
+                    setIsMenuOpen={setIsMenuOpen}
+                  />
                 </div>
               </Offcanvas.Body>
             </Navbar.Offcanvas>

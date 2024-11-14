@@ -2,12 +2,13 @@
   width: 100%;
   max-width: 430px;
   margin: auto;
-  background-color: #eaeced;
+  background-color: #F3E9DC;
   border-radius: 10px;
 }
 .title_feedback {
   text-align: center;
   padding-top: 5vh;
+  color: #4B2E22;
 }
 
 .form_feedback {

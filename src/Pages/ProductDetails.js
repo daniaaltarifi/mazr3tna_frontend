@@ -15,7 +15,7 @@ import RightCart from "../components/RightCart";
 import AddToCartBtn from "../components/AddToCartBtn";
 import FeedbackForm from "../components/FeedbackForm";
 
-const ProductDetails = ({cartItems}) => {
+const ProductDetails = ({ cartItems }) => {
   const [theme] = useThemeHook();
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
@@ -30,7 +30,7 @@ const ProductDetails = ({cartItems}) => {
   const [after_price, setafter_price] = useState(null);
   const [before_price, setbefore_price] = useState(null);
   const [isCanvasOpen, setCanvasOpen] = useState(false);
-  const [selectedWeight, setSelectedWeight] = useState(null)
+  const [selectedWeight, setSelectedWeight] = useState(null);
   const toggleCanvas = () => {
     setCanvasOpen(!isCanvasOpen);
   };
@@ -41,7 +41,7 @@ const ProductDetails = ({cartItems}) => {
       try {
         const response = await axios.get(`${API_URL}/product/getbyid/${id}`);
         setProductData(response.data);
-        console.log("first",response.data)
+        console.log("first", response.data);
       } catch (error) {
         console.error("Error fetching product details:", error);
       } finally {
@@ -56,7 +56,7 @@ const ProductDetails = ({cartItems}) => {
   useEffect(() => {
     if (productData) {
       const { images, variants } = productData;
-  
+
       if (images && images.length > 0) {
         setLargeImage(images[0]);
         setActiveImage(images[0]);
@@ -73,22 +73,21 @@ const ProductDetails = ({cartItems}) => {
       }
     }
   }, [productData]);
-  
+
   // const handleCheckout = () => {
   //   navigate(`/${lang}/cheakOut`);
   // };
   if (loading) {
     return (
-      <div 
+      <div
         className="d-flex justify-content-center align-items-center"
         style={{ height: "50vh" }} // Full viewport height for vertical centering
       >
-        <div className="spinner-border text-dark" role="status">
-        </div>
+        <div className="spinner-border text-dark" role="status"></div>
       </div>
     );
   }
-  
+
   // Check if productData is not null
   if (!productData) {
     return <div>No product data available.</div>;
@@ -96,17 +95,15 @@ const ProductDetails = ({cartItems}) => {
   // Handle quantity increase and decrease
   const handleQuantityChange = (action) => {
     if (action === "increase") {
-      setQuantity(prev => prev + 1);
+      setQuantity((prev) => prev + 1);
     } else if (action === "decrease" && quantity > 1) {
-      setQuantity(prev => prev - 1);
+      setQuantity((prev) => prev - 1);
     }
   };
   const handleSizeButtonClick = (size) => {
     // Find the selected variant by size
-    const selectedVariant = productData.variants.find(
-      (v) => v.size === size
-    );
-  
+    const selectedVariant = productData.variants.find((v) => v.size === size);
+
     if (selectedVariant) {
       // Update prices based on the selected variant
       if (selectedVariant.prices && selectedVariant.prices.length > 0) {
@@ -117,19 +114,19 @@ const ProductDetails = ({cartItems}) => {
         setafter_price(selectedVariant.after_price || "");
         setbefore_price(selectedVariant.before_price || "");
       }
-      setSelectedSize(size);  // Set the selected size
+      setSelectedSize(size); // Set the selected size
     } else {
       console.warn(`Variant with size ${size} not found.`);
     }
   };
-  
+
   // Separate function for handling weight selection
   const handleWeightButtonClick = (weight) => {
     // Find the selected variant by weight
     const selectedVariant = productData.variants.find(
       (v) => v.weight === weight
     );
-  
+
     if (selectedVariant) {
       // Update prices based on the selected variant
       if (selectedVariant.prices && selectedVariant.prices.length > 0) {
@@ -140,13 +137,11 @@ const ProductDetails = ({cartItems}) => {
         setafter_price(selectedVariant.after_price || "");
         setbefore_price(selectedVariant.before_price || "");
       }
-      setSelectedWeight(weight);  // Set the selected weight
+      setSelectedWeight(weight); // Set the selected weight
     } else {
       console.warn(`Variant with weight ${weight} not found.`);
     }
   };
-  
-  
 
   // const handleColorButtonClick = (color) => {
   //   const selectedVariant = availableColors.find(p => p.color === color);
@@ -174,7 +169,6 @@ const ProductDetails = ({cartItems}) => {
                 src={`${API_URL}/${largeImage}`}
                 className="img-fluid"
                 alt="Product"
-
               />
             )}
           </div>
@@ -198,23 +192,21 @@ const ProductDetails = ({cartItems}) => {
             ))}
           </Row>
         </Col>
-        <Col
-          xs={10}
-          md={7}
-          lg={7}
-          className={`${theme ? "text-light" : "text-black"} product-details`}
-        >
-          <h6 style={{ textAlign: "center", opacity: "0.5" }}>
-            {product.brand_name}
-          </h6>
-          <h1>{product.name}</h1>
-          <p>{product.product_type}</p>
+        <Col xs={10} md={7} lg={7}>
+          <h1 className={`${theme ? "text-light" : "text-black"}`}>
+            {product.name}
+          </h1>
+        
           <br />
-          <b className={`h4 mt-3 d-block ${theme ? "text-dark-primary" : "text-light-primary"}`}>
+          <b
+            className={`h4 mt-3 d-block ${
+              theme ? "text-dark-primary" : "text-light-primary"
+            }`}
+          >
             {after_price && (
               <del className="original-price">{before_price} JD</del>
             )}{" "}
-            {after_price ? `${after_price} JD` : ''}
+            {after_price ? `${after_price} JD` : ""}
           </b>
           <div
             className={`${theme ? "text-dark-primary" : "text-dark-primary"}`}
@@ -223,69 +215,86 @@ const ProductDetails = ({cartItems}) => {
           </div>
           {/* handle the color and sizes */}
           {variants.length > 0 && (
-  <div>
-    {/* Render Size Buttons */}
-    {variants.some(variant => variant.size) && (
-      <div>
-        <div className={`mt-3 ${theme ? "text-dark-primary" : ""}`}>Size</div>
-        <div style={{ display: "flex", flexWrap: "wrap", margin: "10px 0" }}>
-          {variants
-            .filter((variant) => variant.size)  // Only show variants with a size
-            .map((variant, index) => (
-              <Button
-                key={index}
-                onClick={() => handleSizeButtonClick(variant.size)}
-                className={`${
-                  selectedSize === variant.size
-                    ? "bg-black text-white"
-                    : "bg-gray-300 text-black"
-                } py-2 m-1`}
-                style={{
-                  border: 0,
-                  width: "80px",
-                  cursor: "pointer",
-                  backgroundColor: "white",
-                }}
-              >
-                {variant.size}
-              </Button>
-            ))}
-        </div>
-      </div>
-    )}
+            <div>
+              {/* Render Size Buttons */}
+              {variants.some((variant) => variant.size) && (
+                <div>
+                  <div className={`mt-3 ${theme ? "text-dark-primary" : ""}`}>
+                    Size
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      margin: "10px 0",
+                    }}
+                  >
+                    {variants
+                      .filter((variant) => variant.size) // Only show variants with a size
+                      .map((variant, index) => (
+                        <Button
+                          key={index}
+                          onClick={() => handleSizeButtonClick(variant.size)}
+                          className={`${
+                            selectedSize === variant.size
+                              ? "bg-black text-white"
+                              : "bg-gray-300 text-black"
+                          } py-2 m-1`}
+                          style={{
+                            border: 0,
+                            width: "80px",
+                            cursor: "pointer",
+                            backgroundColor: "white",
+                          }}
+                        >
+                          {variant.size}
+                        </Button>
+                      ))}
+                  </div>
+                </div>
+              )}
 
-    {/* Render Weight Buttons */}
-    {variants.some(variant => variant.weight) && (
-      <div>
-        <div className={`mt-3 ${theme ? "text-dark-primary" : ""}`}>Weight</div>
-        <div style={{ display: "flex", flexWrap: "wrap", margin: "10px 0" }}>
-          {variants
-            .filter((variant) => variant.weight)  // Only show variants with a weight
-            .map((variant, index) => (
-              <Button
-                key={index}
-                onClick={() => handleWeightButtonClick(variant.weight)}  // Pass weight only
-                className={`${
-                  selectedWeight === variant.weight
-                    ? "bg-black text-white"
-                    : "bg-gray-300 text-black"
-                } py-2 m-1`}
-                style={{
-                  border: 0,
-                  width: "80px",
-                  cursor: "pointer",
-                  backgroundColor: "white",
-                }}
-              >
-                {variant.weight} kg
-              </Button>
-            ))}
-        </div>
-      </div>
-    )}
-  </div>
-)}
-
+              {/* Render Weight Buttons */}
+              {variants.some((variant) => variant.weight) && (
+                <div>
+                  <div className={`mt-3 ${theme ? "text-dark-primary" : ""}`}>
+                    Weight
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      margin: "10px 0",
+                    }}
+                  >
+                    {variants
+                      .filter((variant) => variant.weight) // Only show variants with a weight
+                      .map((variant, index) => (
+                        <Button
+                          key={index}
+                          onClick={() =>
+                            handleWeightButtonClick(variant.weight)
+                          } // Pass weight only
+                          className={`${
+                            selectedWeight === variant.weight
+                              ? "bg-black text-white"
+                              : "bg-gray-300 text-black"
+                          } py-2 m-1`}
+                          style={{
+                            border: 0,
+                            width: "80px",
+                            cursor: "pointer",
+                            backgroundColor: "white",
+                          }}
+                        >
+                          {variant.weight} kg
+                        </Button>
+                      ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
           <div className={`mt-3 ${theme ? "text-dark-primary" : ""}`}>
             Quantity
           </div>
@@ -332,16 +341,16 @@ const ProductDetails = ({cartItems}) => {
                 <BsCartPlus size="1.8rem" />
                 Add to cart
               </Button> */}
-               <AddToCartBtn
-        productID={product.id}
-        title={product.name}
-        quantity={quantity}
-        price={after_price}
-        selectedWeight={selectedWeight}
-        selectedSize={selectedSize}
-        first_image= {`${API_URL}/${largeImage}`}
-        addItem={addItem}
-      />
+              <AddToCartBtn
+                productID={product.id}
+                title={product.name}
+                quantity={quantity}
+                price={after_price}
+                selectedWeight={selectedWeight}
+                selectedSize={selectedSize}
+                first_image={`${API_URL}/${largeImage}`}
+                addItem={addItem}
+              />
               {/* <Button
                 type="submit"
                 onClick={handleCheckout}
@@ -364,15 +373,17 @@ const ProductDetails = ({cartItems}) => {
                   ? "bg-dark-primary text-black"
                   : "bg-light-primary text-light"
               } py-2 m-1`}
-              style={{ borderRadius:"20px",width:"45%" }}
-              >
+              style={{ borderRadius: "20px", width: "45%" }}
+            >
               <BsCartPlus size="1.8rem" />
               Sold Out{" "}
             </Button>
           )}
           <p className="mt-3" style={{ opacity: "0.8", lineHeight: "2" }}>
-            {product.description}
+            {product.ingredients}
           </p>
+          <span>Source: {product.sourcing}</span>
+          <span>Season: {product.season}</span>
           <div className={`mt-5  ${theme ? "text-light" : "text-black"}`}>
             <span className="ms-1">
               <LuShare2 size="1.2rem" />
@@ -390,7 +401,8 @@ const ProductDetails = ({cartItems}) => {
           </div>
         </Col>
       </Row>
-      <YouMayAlsoLike main_product_type={product.main_product_type} />
+      <YouMayAlsoLike main_product_type_id={product.main_product_type_id}
+ />
       <RightCart
         cartItems={cartItems}
         isCanvasOpen={isCanvasOpen}

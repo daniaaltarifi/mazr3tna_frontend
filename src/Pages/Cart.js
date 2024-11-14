@@ -8,7 +8,6 @@ import { IoMdAdd } from "react-icons/io";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import WrapGiftForm from "../components/WrapGiftForm";
 import FetchCartData from "../components/FetchCardData";
 const Cart = () => {
   const [theme] = useThemeHook();
@@ -139,10 +138,7 @@ const Cart = () => {
                       {user ? (
                         // User is logged in, show image from database
                         <img
-                          src={
-                            item.wrap_type
-                              ? `${API_URL}/${item.wrap_img}`
-                              : `${API_URL}/${item.img}`
+                          src={ `${API_URL}/${item.img}`
                           } // Display gift image if wrap_id exists
                           style={{ maxWidth: "80px" }}
                           alt={item.title}
@@ -160,22 +156,6 @@ const Cart = () => {
                   <td>
                     <h6>{item.title}</h6>
                     <h6>{item.size ? item.size :`${item.weight} kg`  }</h6>
-                    {item.wrap_type && (
-                      <div>
-                        <div>Style:{item.wrap_type}</div>
-                        <div>Message:{item.message}</div>
-                        <div>Delivery Date:{item.delivery_date}</div>
-                      </div>
-                    )}
-                    {/* "Is this a gift?" button */}
-                    <button
-                      className={`btn btn-link p-0 text-decoration-none ${
-                        theme ? "text-light" : "text-light-primary"
-                      }`}
-                      onClick={() => handleGiftClick(item)}
-                    >
-                      Is this a gift?
-                    </button>
                   </td>
 
                   <td>Quantity ({item.quantity})</td>
@@ -270,12 +250,7 @@ const Cart = () => {
           </Row>
         )}
 
-        {/* Modal for "Is this a gift?" */}
-        <WrapGiftForm
-          show={showGiftModal}
-          handleClose={handleClose}
-          productID={product_id} // Pass the product ID for updating
-        />
+      
       </Row>
     </Container>
   );

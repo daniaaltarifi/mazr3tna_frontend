@@ -48,6 +48,8 @@ const SignIn = () => {
         // Navigate to account page after successful login
         localStorage.setItem("account", JSON.stringify(response.data.user));
         navigate(`/${lang}`);
+        // window.location.reload()
+
       } else {
         setErrorMessage(response.data.Error || "Login failed");
       }

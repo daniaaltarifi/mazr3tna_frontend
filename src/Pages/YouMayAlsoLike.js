@@ -3,7 +3,7 @@ import {Image } from "react-bootstrap";
 import { useThemeHook } from "../GlobalComponents/ThemeProvider";
 import { Link,useLocation } from 'react-router-dom';
 
-function YouMayAlsoLike({main_product_type}) {
+function YouMayAlsoLike({main_product_type_id}) {
     const [theme] = useThemeHook();
     const location = useLocation();
     const API_URL = process.env.REACT_APP_API_URL;
@@ -13,7 +13,7 @@ const [mayLike,setMayLike]=useState([])
     useEffect(() => {
         const fetchProducts = async () => {
           try {
-            const response = await fetch(`${API_URL}/product/bymaintype/${main_product_type}`);
+            const response = await fetch(`${API_URL}/mainproduct/main_product_filter/${main_product_type_id}`);
             const data = await response.json();
             const randomProduct=data.sort(()=> 0.5 - Math.random()).slice(0, 4);
             setMayLike(randomProduct); // Set the products state
@@ -23,7 +23,7 @@ const [mayLike,setMayLike]=useState([])
         };
     
         fetchProducts();
-      }, [main_product_type]);
+      }, [main_product_type_id]);
   return (
     <div>
            {/* You May Also Like Section */}
