@@ -35,6 +35,7 @@ const Header = ({ cartItems }) => {
   const lang = location.pathname.split("/")[1] || "en";
   const { cart, user } = FetchCartData();
   const [allproductData, setAllproductData] = useState([]);
+  const [allseasonsData, setAllseasonsData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [selectedOption, setSelectedOption] = useState(lang);
