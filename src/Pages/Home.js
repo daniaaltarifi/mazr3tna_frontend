@@ -7,6 +7,7 @@ import Opinions from "./Opinions";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useThemeHook } from "../GlobalComponents/ThemeProvider";
 import axios from "axios";
+import Abouts from "./AllBouts";
 const Home = () => {
   const [theme] = useThemeHook();
   const navigate = useNavigate();
@@ -72,41 +73,7 @@ const Home = () => {
       </Carousel>
 
       <Cardes />
-      <div className="container text-center">
-      <h3
-        className={
-          theme ? "text-light Title-Brands m-5" : "text-black Title-Brands m-5"
-        }
-      >
-         {lang === 'ar' ? "عن مزرغتنا": "About Mazr3tna"}
-      </h3>
-
-        <div className="row">
-          <div className="col-lg-4">
-            <img
-              src={require("../images/image-asset.jpeg")}
-              alt="banner img"
-              className="img-fluid"
-            />
-          </div>
-
-          <div className="col-lg-4">
-            <img
-              src={require("../images/tumblr_mn8b8sLRb61rkz363o1_1280.jpg")}
-              alt="banner img"
-              className="img-fluid"
-            />
-          </div>
-          <div className="col-lg-4">
-            <img
-              src={require("../images/20170802_122423(0).jpg")}
-              alt="banner img"
-              className="img-fluid banner_img"
-            />
-          </div>
-        </div>
-      </div>
-
+      <Abouts />
       <Brands />
       <Opinions />
     </div>
