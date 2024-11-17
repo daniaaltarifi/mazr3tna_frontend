@@ -171,7 +171,7 @@ const Header = ({ cartItems }) => {
         >
           {banners.length > 0 && currentBannerIndex < banners.length
             ? `USE CODE "${banners[currentBannerIndex].code}" FOR ${banners[currentBannerIndex].discount_percentage}%`
-            : "Loading..."}
+            : "No Discount Code Available"}
         </span>
         <button onClick={handleNext} aria-label="Next banner">
           <IoIosArrowForward style={{ color: "white", fontSize: "15px" }} />

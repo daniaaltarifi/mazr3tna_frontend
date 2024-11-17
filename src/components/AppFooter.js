@@ -117,7 +117,7 @@ function AppFooter() {
       <li className="ms-3 mb-2 mb-lg-0">
         <a href="/" className={theme ? 'linkbottom-Footer' : 'text-black linkbottom-Footer'}>
          
-          {lang === "ar" ? "  هديه"  : "  © 2024, Hadiyyeh "}
+          {lang === "ar" ? "  مزرعتنا"  : "  © 2024, Mazr3tna "}
         </a>
       </li>
       <li className="ms-3 mb-2 mb-lg-0">

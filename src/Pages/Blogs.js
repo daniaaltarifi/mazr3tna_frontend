@@ -6,14 +6,14 @@ import { useThemeHook } from "../GlobalComponents/ThemeProvider";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Link,useLocation } from "react-router-dom";
-import BrandsData from "../components/BrandsData";
-const Brands = () => {
+import { Link, useLocation } from "react-router-dom";
+import BlogsData from "../components/BlogsData";
+const Blogs = () => {
   const [theme] = useThemeHook();
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 992);
-  const {certificate} = BrandsData();
+  const { blogs } = BlogsData();
   const API_URL = process.env.REACT_APP_API_URL;
-  const location =useLocation()
+  const location = useLocation();
   const lang = location.pathname.split("/")[1] || "en";
   useEffect(() => {
     const handleResize = () => {
@@ -40,7 +40,7 @@ const Brands = () => {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
-          infinite: true,
+          infinite: false,
         },
       },
       {
@@ -49,7 +49,7 @@ const Brands = () => {
           slidesToShow: 1,
           slidesToScroll: 1,
           autoplaySpeed: 2000,
-          infinite: true,
+          infinite: false,
         },
       },
     ],
@@ -67,56 +67,56 @@ const Brands = () => {
           theme ? "text-light Title-Brands m-5" : "text-black Title-Brands m-5"
         }
       >
-         {lang === 'ar' ? "الشهادات": "Certificate"}
+        {lang === "ar" ? "المدونات" : "Blogs"}
       </h3>
 
       {/* Render different layouts based on screen size */}
       {isLargeScreen ? (
         <div className="row m-4 justify-content-center">
-          {certificate.map((cert, index) => (
+          {blogs.map((blog, index) => (
             <div
               key={index}
               className="col-6 col-sm-4 col-md-2 text-center brand-image-container "
             >
-              {/* <Link
-                to={`productbybrand/${cert.certificate_name}`}
-                style={{ textDecoration: "none" }}
-              > */}
-                <Image
-                  src={`${API_URL}/${cert.certificate_img}`}
-                  alt={cert.certificate_name}
-                  loading="lazy"
-                  className="brand-image img-fluid"  />
-                <p
-                  className={
-                    theme
-                      ? "bg-light-black text-light margin_section full-screen-slider"
-                      : "bg-light text-black margin_section full-screen-slider" } >
-                  {cert.certificate_name} 
-                </p>
+              <Image
+                src={`${API_URL}/${blog.img}`}
+                alt={blog.title}
+                loading="lazy"
+                className="brand-image img-fluid"
+              />
+              <h3
+                className={
+                  theme
+                    ? "bg-light-black text-light margin_section full-screen-slider"
+                    : "bg-light text-black margin_section full-screen-slider"
+                }
+              >
+                {blog.title}
+              </h3>
+              <p
+                className={
+                  theme
+                    ? "bg-light-black text-light margin_section full-screen-slider blog_desc"
+                    : "bg-light text-black margin_section full-screen-slider blog_desc"
+                }
+              >
+                {blog.description}
+              </p>
               {/* </Link> */}
             </div>
           ))}
         </div>
       ) : (
-        <Slider {...sliderSettings}>
-          {certificate.map((cert) => (
-            <div key={cert.id} className="text-center brand-image-container ">
-              <Link
-                to={`productbybrand/${cert.certificate_name}`}
-                style={{ textDecoration: "none"}}
-                className={
-                  theme
-                    ? "bg-light-black text-light margin_section full-screen-slider"
-                    : "bg-light text-black  full-screen-slider" }
-              >
-                <Image
-                  src={`${API_URL}/${cert.certificate_img}`}
-                  alt={cert.certificate_name}
-                  className="brand-image img-fluid p-1"
-                />
-                {cert.certificate_name} <IoIosArrowRoundForward size="1.5rem" />
-              </Link>
+        <Slider {...sliderSettings} style={{ overflow: "hidden" }}>
+          {blogs.map((blog) => (
+            <div key={blog.id} className="text-center brand-image-container ">
+              <Image
+                src={`${API_URL}/${blog.img}`}
+                alt={blog.title}
+                className="brand-image img-fluid p-1"
+              />
+              <h4>{blog.title}</h4>
+              <p className="blog_desc">{blog.description}</p>
             </div>
           ))}
         </Slider>
@@ -125,4 +125,4 @@ const Brands = () => {
   );
 };
 
-export default Brands;
+export default Blogs;

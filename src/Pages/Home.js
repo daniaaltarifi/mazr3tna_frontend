@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Carousel, Image, Container, Row, Col } from "react-bootstrap"; // Import necessary components
 import "../Css/homee.css";
 import Cardes from "./Cardes";
-import Brands from "./Brandes";
+import Blogs from "./Blogs";
 import Opinions from "./Opinions";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useThemeHook } from "../GlobalComponents/ThemeProvider";
@@ -107,7 +107,7 @@ const Home = () => {
         </div>
       </div>
 
-      <Brands />
+      <Blogs />
       <Opinions />
     </div>
   );
