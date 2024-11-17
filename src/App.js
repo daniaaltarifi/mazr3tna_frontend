@@ -24,7 +24,6 @@ import Cardes from "./Pages/Cardes";
 import Allproducts from "./Pages/Allproducts";
 import CheakOut from "./components/CheakOut";
 import Gift from "./Pages/Gift";
-import Refund from "./Pages/Refund";
 import Privacy from "./Pages/Privacy";
 import Terms from "./Pages/Terms";
 // import BrandsProduct from "./Pages/BrandsProducts";
@@ -99,7 +98,6 @@ const App = () => {
               element={<ProductDetails />}
             />
             <Route path="/:lang/gift" element={<Gift />} />
-            <Route path="/:lang/refund" element={<Refund />} />
             <Route path="/:lang/privacy" element={<Privacy />} />
             <Route path="/:lang/terms" element={<Terms />} />
       

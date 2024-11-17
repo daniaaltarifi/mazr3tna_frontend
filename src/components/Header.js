@@ -13,7 +13,6 @@ import { IoIosSearch } from "react-icons/io";
 import { BsInstagram } from "react-icons/bs";
 import { FaFacebook } from "react-icons/fa";
 import { RiTiktokFill } from "react-icons/ri";
-import Logo from "../images/modern-farm-logo-vector-24193212-removebg-preview.png";
 import RightCart from "./RightCart";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
@@ -33,15 +32,14 @@ const Header = ({ cartItems }) => {
   const [seasons, setseasons] = useState([]);
   const [openSearch, setOpenSearch] = useState(false);
   const lang = location.pathname.split("/")[1] || "en";
-  const { cart, user } = FetchCartData();
   const [allproductData, setAllproductData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [selectedOption, setSelectedOption] = useState(lang);
   const [banners, setBanners] = useState([]);
-  const { totalItems } = useCart();
   const [productType, setProductType] = useState("");
   const [main_product, setMain_product] = useState([]);
+  const [logo, setLogo] = useState([]);
 
   // const numberofitemsincart = !user ? totalItems : cart.length;
   const handleSelection = (event) => {
@@ -56,16 +54,18 @@ const Header = ({ cartItems }) => {
     setSelectedOption(lang);
     const fetchData = async () => {
       try {
-        const [seasonResponse, codeResponse, main_productRes] =
+        const [seasonResponse, codeResponse, main_productRes,footerResponse] =
           await Promise.all([
             axios(`${API_URL}/certificate/get/season`),
             axios(`${API_URL}/discountcode/getcodes`),
-            axios(`${API_URL}/mainproduct/getmainproduct`),
+            axios(`${API_URL}/header/get/${lang}`),
+            axios(`${API_URL}/footer/get/footer`),
           ]);
         setseasons(seasonResponse.data);
         setBanners(codeResponse.data);
         setMain_product(main_productRes.data);
-        console.log("first page loaded", main_productRes.data);
+        setLogo(footerResponse.data[0].logo)
+        console.log("first page loaded",footerResponse.data[0].logo)
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -122,23 +122,6 @@ const Header = ({ cartItems }) => {
     };
     getproductForSearch();
   }, [openSearch]);
-
-  const handleType = (
-    title,
-    subtype = "",
-    season = "",
-    allproductData = ""
-  ) => {
-    const productInfo = {
-      mainType: title,
-      productType: subtype,
-      season: season,
-      allproductData: allproductData,
-    };
-    localStorage.setItem("productInfo", JSON.stringify(productInfo)); // Store the object as a JSON string
-    setProductType(subtype); // Update state
-    window.dispatchEvent(new Event("productInfoUpdated"));
-  };
 
   const handleInputChange = (event) => {
     const query = event.target.value;
@@ -214,7 +197,7 @@ const Header = ({ cartItems }) => {
           <Link to="/">
             <Navbar.Brand className="mx-auto">
               <Image
-                src={Logo}
+                src={`${API_URL}/${logo}`}
                 style={{
                   maxHeight: "70px",
                   margin: "10px",
@@ -332,71 +315,12 @@ const Header = ({ cartItems }) => {
                       as={Link}
                       className="nav_link_header"
                       key={catg.id}
-                      to={`/${lang}/allproducts/${catg.id}`}
-                      //  onClick={() => {
-                      //    handleType("", "", "", "allproducts");
-                      //    setIsMenuOpen(false);
-                      //  }}
+                      to={`/${lang}/allproducts/${catg.category_id}`}
                     >
-                      {catg.name}
+                      {catg.title}
                     </Nav.Link>
                   ))}
-                  {/* <NavDropdown.Item
-                      as={Link}
-                      to={`/${lang}/allproducts`}
-                      onClick={() => {
-                        handleType("Fragrance", "1");
-                        setIsMenuOpen(false);
-                      }}
-                    >
-                      {lang === "ar" ? "رجال" : "FOR HIM"}
-                    </NavDropdown.Item>
-                    <NavDropdown.Item
-                      as={Link}
-                      to={`/${lang}/allproducts`}
-                      onClick={() => {
-                        handleType("Fragrance", "2");
-                        setIsMenuOpen(false);
-                      }}
-                    >
-                      {lang === "ar" ? "نساء" : "FOR HER"}
-                    </NavDropdown.Item>
-                    <NavDropdown.Item
-                      as={Link}
-                      to={`/${lang}/allproducts`}
-                      onClick={() => {
-                        handleType("Fragrance", "3");
-                        setIsMenuOpen(false);
-                      }}
-                    >
-                      {lang === "ar" ? "للجنسين" : "UNISEX"}
-                    </NavDropdown.Item>
-                    <NavDropdown.Item
-                      as={Link}
-                      to={`/${lang}/allproducts`}
-                      onClick={() => {
-                        handleType("Fragrance");
-                        setIsMenuOpen(false);
-                      }}
-                    >
-                      {lang === "ar" ? "جميع العطور" : " ALL FRAGRANCES   "}
-                    </NavDropdown.Item> */}
-
-                  {/* <NavDropdown
-                    title={lang === "ar" ? "تسوق حسب الماركة" : "SHOP BY BRAND"}
-                    id={`offcanvasNavbarDropdown-expand-${expand}`}
-                  >
-                    {brands.map((brand) => (
-                      <NavDropdown.Item
-                        as={Link}
-                        key={brand._id}
-                        onClick={() => setIsMenuOpen(false)}
-                        to={`/${lang}/productbybrand/${brand.brand_name}`}
-                      >
-                        {brand.brand_name}
-                      </NavDropdown.Item>
-                    ))}
-                  </NavDropdown> */}
+               
                   <NavDropdown
                     title={lang === "ar" ? "تسوق حسب الموسم" : "SHOP BY SEASON"}
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
@@ -407,7 +331,6 @@ className="nav_dropdown_header"                    >
                         as={Link}
                         className="nav_link_header"
                         onClick={() => {
-                          handleType("", "", `${season.season}`);
                           setIsMenuOpen(false);
                         }}
                         to={`/${lang}/byseason/${season.season}`}
@@ -429,7 +352,6 @@ className="nav_dropdown_header"                    >
                     as={Link}
                     to={`/${lang}/allmainproducts`}
                     onClick={() => {
-                      handleType("", "", "", "allproducts");
                       setIsMenuOpen(false);
                     }}
                     className="nav_link_header"
@@ -439,7 +361,7 @@ className="nav_dropdown_header"                    >
                 </Nav>
                 {/* Social media icons (hidden on large screens, visible on small screens) */}
                 {/* Social media icons (for dark mode) */}
-                <div className="social-icons-toggle">
+                {/* <div className="social-icons-toggle">
                   <a
                     href="https://www.facebook.com"
                     target="_blank"
@@ -470,7 +392,7 @@ className="nav_dropdown_header"                    >
                   >
                     <RiTiktokFill size="1.3rem" />
                   </a>
-                </div>
+                </div> */}
                 {/* Icons toggle (dark mode, account, translate) centered like social-icons-toggle */}
                 <div className="social-icons-toggle d-flex d-md-none justify-content-center">
                   <Nav.Link

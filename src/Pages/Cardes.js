@@ -6,7 +6,7 @@ import "../Css/cardes.css";
 import axios from "axios";
 import { Image } from "react-bootstrap"; // Import necessary components
 import { useThemeHook } from "../GlobalComponents/ThemeProvider";
-import { Link } from "react-router-dom";
+import { Link,useLocation } from "react-router-dom";
 const settings = {
   speed: 300,
   slidesToShow: 6,
@@ -47,6 +47,8 @@ const settings = {
 
 const Cardes = () => {
   const [theme] = useThemeHook();
+  const location = useLocation(); 
+  const lang = location.pathname.split("/")[1] || "en";
   const API_URL = process.env.REACT_APP_API_URL;
   const [latestProduct, setLatestProduct] = useState([]);
   useEffect(() => {
@@ -73,7 +75,7 @@ const Cardes = () => {
               : " we_help_you_home m-5"
           }
         >
-          LATEST ARRIVALS
+         {lang === 'ar' ? "أحدث المنتجات":"LATEST ARRIVALS"} 
         </h3>
 
         <div className="row mt-5">
