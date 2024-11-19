@@ -110,9 +110,9 @@ const Abouts = () => {
                   src={`${API_URL}/${about.img}`} 
                   alt={about.title}
                   loading="lazy"
-                  className="about-image img-fluid"
+                  className="brand-image img-fluid"
                 />
-                <p
+                <h4
                   className={
                     theme
                       ? "bg-light-black text-light margin_section full-screen-slider"
@@ -120,7 +120,7 @@ const Abouts = () => {
                   }
                 >
                   {about.title}
-                </p>
+                </h4>
                 <p
                   className={
                     theme

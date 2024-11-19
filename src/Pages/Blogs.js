@@ -96,8 +96,8 @@ const Blogs = () => {
               <p
                 className={
                   theme
-                    ? "bg-light-black text-light margin_section full-screen-slider blog_desc"
-                    : "bg-light text-black margin_section full-screen-slider blog_desc"
+                    ? "bg-light-black text-light margin_section full-screen-slider "
+                    : "bg-light text-black margin_section full-screen-slider "
                 }
               >
                 {blog.description}
