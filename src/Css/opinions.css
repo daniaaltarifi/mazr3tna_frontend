@@ -140,7 +140,7 @@
       @media (max-width: 992px) {
         .container h3 {
           font-size: 1rem;  /* Very small screens */
-          line-height: 1.75rem;
+          /* line-height: 1.75rem; */
           font-weight: 400;
         }
         .product-opinion p {

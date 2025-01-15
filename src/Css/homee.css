@@ -46,7 +46,7 @@
 .text-center p {
     color: #4B2E22;
     font-size: 0.99rem;
-    margin: 0 0 5px; /* Space between paragraph and button */
+    margin: 0 0 5px; 
     letter-spacing: 0.1rem;
 }
 
@@ -84,6 +84,13 @@
     height: 275px;
     width: 500px;
 }
+.main_btn_slider{
+background-color:#6A994E ;
+border: none;
+padding: 8px;
+border-radius: 5px;
+margin-top: 2vh;
+}
 @media (max-width: 768px) {
     .responsive-carousel {
         height: 300px;
@@ -103,13 +110,16 @@
     }
 
     .text-center p {
-        font-size: 0.5rem; /* Adjust font size for smaller screens */
+        font-size: 0.8rem; /* Adjust font size for smaller screens */
     }
     .text-center .btn {
    
       margin-top: 0px;
         font-size: 0.6rem;
-       
         
     }
+    .main_btn_slider{
+padding: 1px;
+margin-top: 0;
+}
 }

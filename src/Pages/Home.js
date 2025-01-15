@@ -57,10 +57,7 @@ const Home = () => {
                     <button
                       onClick={() => navigate(`/${lang}/allproducts/${slide.link_to}`)}
                       type="button"
-                      // className={
-                      //   theme ? "text-light btn m-3" : "text-black btn m-3"
-                      // }
-                      style={{backgroundColor:"#6A994E",border:"none",padding:"8px",borderRadius:"5px",marginTop:"2vh"}}
+                      className={"main_btn_slider" }
                     >
                       SHOP NOW
                     </button>

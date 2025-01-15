@@ -146,13 +146,14 @@ const Abouts = () => {
                 <Image
                   src={`${API_URL}/${about.img}`} 
                   alt={about.title}
-                  className="about-image img-fluid p-1"
+                  className="about-image  p-1"
+                  height={"250px"}
+                  width={"100%"}
                 />
                 <div>
-                  <p>{about.title}</p>
+                {about.title} <IoIosArrowRoundForward size="1.5rem" />
                   <p>{about.description}</p> 
                 </div>
-                {about.title} <IoIosArrowRoundForward size="1.5rem" />
               </div>
             </div>
           ))}

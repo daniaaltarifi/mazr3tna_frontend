@@ -53,7 +53,7 @@
         max-height: 300px; /* Limit the height of the big image */
         object-fit: cover; /* Cover the area without distortion */
         height:200px;
-        width: 100px;
+        width: 100%;
     }
     
       
