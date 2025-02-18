@@ -34,10 +34,15 @@ const Home = () => {
         {slider.map((slide) => (
           <Carousel.Item key={slide.id}>
             <Image
-              src={`${API_URL}/${slide.img}`}
+              src={`${API_URL}/${slide.img}`} // Default image
+              srcSet={`${API_URL}/${slide.img}?w=400&f_auto&q_auto:eco 400w,
+           ${API_URL}/${slide.img}?w=800&f_auto&q_auto:eco 800w,
+           ${API_URL}/${slide.img}?w=1200&f_auto&q_auto:eco 1200w`}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="d-block w-100 carousel-image"
               alt="First slide"
             />
+
             <Carousel.Caption
               className={
                 theme ? "bg-slider-black text-light" : "bg-light text-black"
@@ -55,9 +60,11 @@ const Home = () => {
                       {slide.subtitle}
                     </p>
                     <button
-                      onClick={() => navigate(`/${lang}/allproducts/${slide.link_to}`)}
+                      onClick={() =>
+                        navigate(`/${lang}/allproducts/${slide.link_to}`)
+                      }
                       type="button"
-                      className={"main_btn_slider" }
+                      className={"main_btn_slider"}
                     >
                       SHOP NOW
                     </button>
@@ -70,7 +77,7 @@ const Home = () => {
       </Carousel>
 
       <Cardes />
-   
+
       <Abouts />
       <Blogs />
       <Opinions />
