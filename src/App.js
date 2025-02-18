@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useThemeHook } from "./GlobalComponents/ThemeProvider";
@@ -14,24 +14,42 @@ import {
 } from "react-router-dom";
 
 // Pages
-import Home from "./Pages/Home";
-import Cart from "./Pages/Cart";
-import ProductDetails from "./Pages/ProductDetails";
-import SignIn from "./Pages/SignIn";
-import Register from "./Pages/Register";
-import MyAccount from "./Pages/MyAccount";
-import Cardes from "./Pages/Cardes";
-import Allproducts from "./Pages/Allproducts";
-import CheakOut from "./components/CheakOut";
-import Gift from "./Pages/Gift";
-import Privacy from "./Pages/Privacy";
-import Terms from "./Pages/Terms";
-// import BrandsProduct from "./Pages/BrandsProducts";
+
+// import Home from "./Pages/Home";
+// import Cart from "./Pages/Cart";
+// import ProductDetails from "./Pages/ProductDetails";
+// import SignIn from "./Pages/SignIn";
+// import Register from "./Pages/Register";
+// import MyAccount from "./Pages/MyAccount";
+// import Cardes from "./Pages/Cardes";
+// import Allproducts from "./Pages/Allproducts";
+// import CheakOut from "./components/CheakOut";
+// import Gift from "./Pages/Gift";
+// import Privacy from "./Pages/Privacy";
+// import Terms from "./Pages/Terms";
+
 import { CartProvider } from "react-use-cart";
-import ForgetPassword from "./Pages/ForgetPassword";
-import ResetPassword from "./Pages/ResetPassword";
-import GetAllproducts from "./Pages/GetAllProducts";
-import GetBySeason from "./Pages/GetBySeason";
+// import ForgetPassword from "./Pages/ForgetPassword";
+// import ResetPassword from "./Pages/ResetPassword";
+// import GetAllproducts from "./Pages/GetAllProducts";
+// import GetBySeason from "./Pages/GetBySeason";
+const Home=React.lazy(()=>import('./Pages/Home'))
+const Cart=React.lazy(()=>import('./Pages/Cart'))
+const ProductDetails=React.lazy(()=>import('./Pages/ProductDetails'))
+const SignIn=React.lazy(()=>import('./Pages/SignIn'))
+const Register=React.lazy(()=>import('./Pages/Register'))
+const MyAccount=React.lazy(()=>import('./Pages/MyAccount'))
+const Cardes=React.lazy(()=>import('./Pages/Cardes'))
+const Allproducts=React.lazy(()=>import('./Pages/Allproducts'))
+const CheakOut=React.lazy(()=>import('./components/CheakOut'))
+const Gift=React.lazy(()=>import('./Pages/Gift'))
+const Privacy=React.lazy(()=>import('./Pages/Privacy'))
+const Terms=React.lazy(()=>import('./Pages/Terms'))
+const ForgetPassword=React.lazy(()=>import('./Pages/ForgetPassword'))
+const ResetPassword=React.lazy(()=>import('./Pages/ResetPassword'))
+const GetAllproducts=React.lazy(()=>import('./Pages/GetAllProducts'))
+const GetBySeason=React.lazy(()=>import('./Pages/GetBySeason'))
+
 
 const App = () => {
   const [theme] = useThemeHook();
@@ -75,14 +93,11 @@ const App = () => {
           className={theme ? "bg-light-black" : "bg-light"}
           style={{ paddingTop: "100px" }}
         >
-          <Routes>
+        <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
             <Route path="/:lang/allproducts/:main_product_id" element={<Allproducts />} />
             <Route path="/:lang/allmainproducts" element={<GetAllproducts />} />
             <Route path="/:lang/byseason/:season" element={<GetBySeason />} />
-            {/* <Route
-              path="/:lang/productbybrand/:brand"
-              element={<BrandsProduct />}
-            /> */}
             <Route path="/:lang/cheakOut" element={<CheakOut />} />
             <Route path="/:lang" element={<Home />} />
             <Route path="/:lang/my-account" element={<MyAccount />} />
@@ -92,7 +107,6 @@ const App = () => {
             <Route path="/:lang/resetpassword" element={<ResetPassword />} />
             <Route path="/:lang/cardes" element={<Cardes />} />
             <Route path="/:lang/cart" element={<Cart />} />
-            {/* <Route path="/:lang/blogs" element={<Blogs />} /> */}
             <Route
               path="/:lang/product-details/:id"
               element={<ProductDetails />}
@@ -102,7 +116,7 @@ const App = () => {
             <Route path="/:lang/terms" element={<Terms />} />
       
           </Routes>
-
+      </Suspense>
           {/* Conditionally render the footer if the path is NOT '/cart' */}
           {!location.pathname.includes("/cart") && <AppFooter />}
         </main>

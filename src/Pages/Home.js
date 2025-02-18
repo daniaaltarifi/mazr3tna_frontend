@@ -36,8 +36,8 @@ const Home = () => {
             <Image
               src={`${API_URL}/${slide.img}`} // Default image
               srcSet={`${API_URL}/${slide.img}?w=400&f_auto&q_auto:eco 400w,
-           ${API_URL}/${slide.img}?w=800&f_auto&q_auto:eco 800w,
-           ${API_URL}/${slide.img}?w=1200&f_auto&q_auto:eco 1200w`}
+            ${API_URL}/${slide.img}?w=800&f_auto&q_auto:eco 800w,
+            ${API_URL}/${slide.img}?w=1200&f_auto&q_auto:eco 1200w`}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="d-block w-100 carousel-image"
               alt="First slide"
